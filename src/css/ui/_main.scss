@@ -1,0 +1,14 @@
+* {
+  font-family: $base-font-family;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h2 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+  font-weight: 400;
+}
