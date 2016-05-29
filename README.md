@@ -26,3 +26,25 @@ $ API_PORT=80 npm run dev
 
 Now visit [http://localhost:4001](http://localhost:4001) in your browser!
 
+##### Deploying
+
+The frontend is hosted on GitHub pages. Deployment is currently very easy (but could be automated more!)
+
+```sh
+# skip the following steps if you've deployed before
+$ mkdir -p dist
+$ cd dist
+$ git init
+$ git remote add origin git@github.com:justinsacbibit/trucksu-frontend.git # or use the https url
+$ git fetch origin
+$ git reset origin/gh-pages --hard
+$ cd ..
+
+# start here if you've deployed before
+$ npm run dist
+$ cd dist
+$ git add .
+$ git commit -m 'Update'
+$ git push origin gh-pages
+```
+
