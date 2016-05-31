@@ -7,7 +7,7 @@ const Actions = {};
 
 Actions.signUp = (data) => {
   return dispatch => {
-    httpPost('/api/v1/registrations', { user: data })
+    httpPost('/v1/registrations', { user: data })
     .then((data) => {
       localStorage.setItem('trucksuAuthToken', data.jwt);
 
