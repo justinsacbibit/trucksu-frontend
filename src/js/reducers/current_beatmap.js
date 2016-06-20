@@ -1,7 +1,7 @@
 import Constants from '../constants';
 
 const initialState = {
-  beatmap: null,
+  beatmapset: null,
   fetching: true,
 };
 
@@ -10,6 +10,7 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.BEATMAPSET_FETCHING:
       return {
         ...state,
+        beatmapset: null,
         fetching: true,
       };
 

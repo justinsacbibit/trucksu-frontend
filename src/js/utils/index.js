@@ -6,12 +6,16 @@ const defaultHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
-let apiUrl;
+let _apiUrl;
 if (process.env.NODE_ENV === 'production') {
-  apiUrl = 'https://api.trucksu.com';
+  _apiUrl = 'https://api.trucksu.com';
 } else {
   const apiPort = process.env.API_PORT || 8080;
-  apiUrl = `http://localhost:${apiPort}/api`;
+  _apiUrl = `http://localhost:${apiPort}/api`;
+}
+
+export function apiUrl(path) {
+  return _apiUrl + path;
 }
 
 function buildHeaders() {
@@ -36,7 +40,7 @@ export function parseJSON(response) {
 
 export function httpGet(url) {
 
-  return fetch(apiUrl + url, {
+  return fetch(_apiUrl + url, {
     headers: buildHeaders(),
   })
   .then(checkStatus)
@@ -46,7 +50,7 @@ export function httpGet(url) {
 export function httpPost(url, data) {
   const body = JSON.stringify(data);
 
-  return fetch(apiUrl + url, {
+  return fetch(_apiUrl + url, {
     method: 'post',
     headers: buildHeaders(),
     body: body,
@@ -56,7 +60,7 @@ export function httpPost(url, data) {
 }
 
 export function httpDelete(url) {
-  return fetch(apiUrl + url, {
+  return fetch(_apiUrl + url, {
     method: 'delete',
     headers: buildHeaders(),
   })

@@ -11,7 +11,10 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 
 import Actions from '../../actions/current_beatmap';
 import Constants from '../../constants';
-import { setDocumentTitle } from '../../utils';
+import {
+  setDocumentTitle,
+  apiUrl,
+} from '../../utils';
 
 import { getModsArray } from '../../utils/osu';
 
@@ -62,6 +65,12 @@ class BeatmapShowView extends React.Component {
     this.props.fetchBeatmapset(this.props.params.beatmapId);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.params.beatmapId !== prevProps.params.beatmapId) {
+      this.props.fetchBeatmapset(this.props.params.beatmapId);
+    }
+  }
+
   _handleBeatmapClick(beatmapId, e) {
     e.preventDefault();
     this.props.push(`/beatmaps/${beatmapId}`);
@@ -108,6 +117,17 @@ class BeatmapShowView extends React.Component {
                   />
                 );
               })}
+            </div>
+          </div>
+
+          <div style={styles.headerContainer}>
+            <div>
+              <RaisedButton
+                label='Download'
+                style={{margin: 5}}
+                linkButton
+                href={apiUrl(`/beatmapsets/${beatmapset.id}/download`)}
+              />
             </div>
           </div>
 
