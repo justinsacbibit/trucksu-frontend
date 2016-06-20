@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import classnames from 'classnames';
 
 import { setDocumentTitle } from '../../utils';
 import Actions from '../../actions/boards';
@@ -44,9 +43,23 @@ class HomeIndexView extends React.Component {
           {this.props.leaderboard.map((user, index) => {
             return (
               <TableRow key={index} selectable={false}>
-                <TableRowColumn width={90}>#{index + 1}</TableRowColumn>
-                <TableRowColumn width={160}><a href={`/users/${user.user.id}`} onClick={this._handleUserClick.bind(this, user.user.id)} style={{color: '#0000FF', cursor: 'pointer', textDecoration: 'none'}}>{user.user.username}</a></TableRowColumn>
-                <TableRowColumn><strong>{user.pp.toFixed(2)}pp</strong></TableRowColumn>
+                <TableRowColumn width={90}>
+                  #{index + 1}
+                </TableRowColumn>
+
+                <TableRowColumn width={160}>
+                  <a
+                    href={`/users/${user.user.id}`}
+                    onClick={this._handleUserClick.bind(this, user.user.id)}
+                    style={{color: '#0000FF', cursor: 'pointer', textDecoration: 'none'}}
+                  >
+                    {user.user.username}
+                  </a>
+                </TableRowColumn>
+
+                <TableRowColumn>
+                  <strong>{user.pp.toFixed(2)}pp</strong>
+                </TableRowColumn>
               </TableRow>
             );
           })}
