@@ -23,6 +23,10 @@ const Actions = {
       });
     };
   },
+
+  resetBeatmapset: () => ({
+    type: Constants.BEATMAPSET_RESET,
+  }),
 };
 
 export default Actions;

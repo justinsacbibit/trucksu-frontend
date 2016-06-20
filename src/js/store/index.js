@@ -11,7 +11,14 @@ const loggerMiddleware = createLogger({
 
 export default function configureStore(browserHistory) {
   const reduxRouterMiddleware = routerMiddleware(browserHistory)
-  const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware)(createStore);
+
+  let appliedMiddleware;
+  if (process.env.NODE_ENV === 'production') {
+    appliedMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware);
+  } else {
+    appliedMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware);
+  }
+  const createStoreWithMiddleware = appliedMiddleware(createStore);
 
   return createStoreWithMiddleware(reducers);
 }

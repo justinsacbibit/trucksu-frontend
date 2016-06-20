@@ -28,6 +28,9 @@ export default function reducer(state = initialState, action = {}) {
         fetching: false,
       };
 
+    case Constants.BEATMAPSET_RESET:
+      return initialState;
+
     default:
       return state;
   }

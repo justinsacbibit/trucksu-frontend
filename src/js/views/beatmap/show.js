@@ -65,9 +65,16 @@ class BeatmapShowView extends React.Component {
     this.props.fetchBeatmapset(this.props.params.beatmapId);
   }
 
+  componentWillUnmount() {
+    this.props.resetBeatmapset();
+  }
+
   componentDidUpdate(prevProps) {
-    if (this.props.params.beatmapId !== prevProps.params.beatmapId) {
-      this.props.fetchBeatmapset(this.props.params.beatmapId);
+    if (this.props.beatmap.beatmapset) {
+      const matchingBeatmap = this.props.beatmap.beatmapset.beatmaps.find(beatmap => beatmap.id === Number(this.props.params.beatmapId));
+      if (!matchingBeatmap) {
+        this.props.fetchBeatmapset(this.props.params.beatmapId);
+      }
     }
   }
 
@@ -86,8 +93,6 @@ class BeatmapShowView extends React.Component {
         </div>
       );
     }
-
-    console.log(beatmapset);
 
     const beatmap = beatmapset.beatmaps.find((beatmap) => beatmap.id === Number(this.props.params.beatmapId));
 
@@ -148,7 +153,7 @@ class BeatmapShowView extends React.Component {
                 displayRowCheckbox={false}>
                 {beatmap.scores.map((score, index) => {
                   return (
-                    <TableRow>
+                    <TableRow key={index}>
                       <TableRowColumn>{index + 1}</TableRowColumn>
                       <TableRowColumn>{score.user.username}</TableRowColumn>
                       <TableRowColumn>{score.score.toLocaleString()}</TableRowColumn>
@@ -173,6 +178,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchBeatmapset: Actions.fetchBeatmapset,
+    resetBeatmapset: Actions.resetBeatmapset,
     push,
   }, dispatch);
 };
