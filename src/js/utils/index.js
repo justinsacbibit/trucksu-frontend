@@ -56,8 +56,6 @@ export function httpPost(url, data) {
 }
 
 export function httpDelete(url) {
-  const authToken = localStorage.getItem('trucksuAuthToken');
-
   return fetch(apiUrl + url, {
     method: 'delete',
     headers: buildHeaders(),

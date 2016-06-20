@@ -9,6 +9,7 @@ import BoardsShowView               from '../views/boards/show';
 import CardsShowView                from '../views/cards/show';
 import Actions                      from '../actions/sessions';
 import UserShowView from '../views/user/show';
+import BeatmapShowView from '../views/beatmap/show';
 
 export default function configRoutes(store) {
   const _ensureAuthenticated = (nextState, replace, callback) => {
@@ -33,6 +34,7 @@ export default function configRoutes(store) {
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>
         <IndexRoute component={HomeIndexView} />
         <Route path="/users/:userId" component={UserShowView} />
+        <Route path="/beatmaps/:beatmapId" component={BeatmapShowView} />
 
         {/*
         <Route path="/boards/:id" component={BoardsShowView}>

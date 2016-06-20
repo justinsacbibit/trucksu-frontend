@@ -89,9 +89,9 @@ class Header extends React.Component {
   }
 
   render() {
-    const tabsValue = this.props.location.pathname.startsWith('/users/')
-      ? -1
-      : 0;
+    const tabsValue = this.props.location.pathname === '/'
+      ? 0
+      : -1;
     return (
       <AppBar
         showMenuIconButton={false}

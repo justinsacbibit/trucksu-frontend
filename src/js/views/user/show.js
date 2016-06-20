@@ -1,17 +1,15 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import Actions from '../../actions/current_user';
-import Constants from '../../constants';
-import { setDocumentTitle } from '../../utils';
-import ListForm from '../../components/lists/form';
-import ListCard from '../../components/lists/card';
-import BoardMembers from '../../components/boards/members';
+import { push } from 'react-router-redux';
 
 import CircularProgress from 'material-ui/CircularProgress';
 // import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+
+import Actions from '../../actions/current_user';
+import Constants from '../../constants';
+import { setDocumentTitle } from '../../utils';
 
 import { getModsArray } from '../../utils/osu';
 
@@ -40,6 +38,18 @@ class UserShowView extends React.Component {
     this.props.dispatch(Actions.fetchUser(this.props.params.userId));
   }
 
+  componentDidUpdate(prevProps) {
+    const { user } = this.props.currentUser;
+    if (user && !prevProps.currentUser.user) {
+      setDocumentTitle(`${user.username}'s profile`);
+    }
+  }
+
+  _handleBeatmapClick(beatmapId, e) {
+    e.preventDefault();
+    this.props.dispatch(push(`/beatmaps/${beatmapId}`));
+  }
+
   _renderScoresTable(scores) {
     return (
       <Paper style={{width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'column'}} zDepth={1}>
@@ -50,7 +60,8 @@ class UserShowView extends React.Component {
             <div key={index}>
               <div style={{display: 'flex', flexDirection: 'row'}}>
                 <a
-                  href={`https://osu.ppy.sh/b/${score.beatmap.id}`}
+                  href={`/beatmaps/${score.beatmap.id}`}
+                  onClick={this._handleBeatmapClick.bind(this, score.beatmap.id)}
                   style={{textDecoration: 'none'}}>
                   {`${score.beatmap.beatmapset.artist} - ${score.beatmap.beatmapset.title} (${score.beatmap.beatmapset.creator}) [${score.beatmap.version}]`}
                 </a>
