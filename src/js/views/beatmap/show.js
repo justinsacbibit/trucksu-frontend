@@ -133,6 +133,12 @@ class BeatmapShowView extends React.Component {
                 linkButton
                 href={apiUrl(`/v1/beatmapsets/${beatmapset.id}/download`)}
               />
+              <RaisedButton
+                label='osu!direct'
+                style={{margin: 5}}
+                linkButton
+                href={`osu://b/${beatmap.id}`}
+              />
             </div>
           </div>
 
