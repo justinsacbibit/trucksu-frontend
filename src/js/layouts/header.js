@@ -4,9 +4,6 @@ import { Link }         from 'react-router';
 import ReactGravatar    from 'react-gravatar';
 import { push }         from 'react-router-redux';
 
-import SessionActions   from '../actions/sessions';
-import HeaderActions    from '../actions/header';
-
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
@@ -17,6 +14,11 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+
+import SessionActions   from '../actions/sessions';
+import HeaderActions    from '../actions/header';
+
+import UserLink from '../components/UserLink';
 
 class Header extends React.Component {
   _handleBoardsClick(e) {
@@ -64,7 +66,12 @@ class Header extends React.Component {
     }
 
     return (
-      <div style={{alignSelf: 'center'}}>{currentUser.username}</div>
+      <div style={{alignSelf: 'center'}}>
+        <UserLink
+          userId={currentUser.id}
+          username={currentUser.username}
+        />
+      </div>
     );
   }
 
