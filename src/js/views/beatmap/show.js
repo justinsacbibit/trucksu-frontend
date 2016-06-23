@@ -8,15 +8,15 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-
 import Actions from '../../actions/current_beatmap';
 import Constants from '../../constants';
 import {
   setDocumentTitle,
   apiUrl,
 } from '../../utils';
-
 import { getModsArray } from '../../utils/osu';
+
+import UserLink from '../../components/UserLink';
 
 
 const styles = {
@@ -161,7 +161,12 @@ class BeatmapShowView extends React.Component {
                   return (
                     <TableRow key={index}>
                       <TableRowColumn>{index + 1}</TableRowColumn>
-                      <TableRowColumn>{score.user.username}</TableRowColumn>
+                      <TableRowColumn>
+                        <UserLink
+                          userId={score.user.id}
+                          username={score.user.username}
+                        />
+                      </TableRowColumn>
                       <TableRowColumn>{score.score.toLocaleString()}</TableRowColumn>
                       <TableRowColumn>{getModsArray(score.mods).join(',')}</TableRowColumn>
                       <TableRowColumn>{score.pp ? score.pp.toFixed(2) : 'N/A'}</TableRowColumn>

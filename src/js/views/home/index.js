@@ -2,14 +2,15 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-import { setDocumentTitle } from '../../utils';
-import Actions from '../../actions/boards';
-import LeaderboardActions from '../../actions/leaderboard';
-
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
+
+import { setDocumentTitle } from '../../utils';
+import Actions from '../../actions/boards';
+import LeaderboardActions from '../../actions/leaderboard';
+import UserLink from '../../components/UserLink';
 
 class HomeIndexView extends React.Component {
   static propTypes = {
@@ -22,11 +23,6 @@ class HomeIndexView extends React.Component {
 
     const { dispatch } = this.props;
     dispatch(LeaderboardActions.fetchLeaderboard());
-  }
-
-  _handleUserClick(userId, e) {
-    e.preventDefault();
-    this.props.dispatch(push(`/users/${userId}`));
   }
 
   _renderTable() {
@@ -48,13 +44,10 @@ class HomeIndexView extends React.Component {
                 </TableRowColumn>
 
                 <TableRowColumn width={160}>
-                  <a
-                    href={`/users/${user.user.id}`}
-                    onClick={this._handleUserClick.bind(this, user.user.id)}
-                    style={{color: '#0000FF', cursor: 'pointer', textDecoration: 'none'}}
-                  >
-                    {user.user.username}
-                  </a>
+                  <UserLink
+                    userId={user.user.id}
+                    username={user.user.username}
+                  />
                 </TableRowColumn>
 
                 <TableRowColumn>
