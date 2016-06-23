@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "./webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "./build-prod.sh"
+    "dist": "./build-prod.sh",
+    "lint": "eslint src"
   },
   "author": "",
   "license": "MIT",
