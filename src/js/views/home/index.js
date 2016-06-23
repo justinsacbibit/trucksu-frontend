@@ -33,7 +33,7 @@ class HomeIndexView extends React.Component {
         <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn width={90}>Rank</TableHeaderColumn>
-            <TableHeaderColumn width={160}>Username</TableHeaderColumn>
+            <TableHeaderColumn width={230}>Username</TableHeaderColumn>
             <TableHeaderColumn width={130}>PP</TableHeaderColumn>
             <TableHeaderColumn width={120}>Accuracy</TableHeaderColumn>
             <TableHeaderColumn width={120}>Playcount</TableHeaderColumn>
@@ -49,7 +49,7 @@ class HomeIndexView extends React.Component {
                   #{index + 1}
                 </TableRowColumn>
 
-                <TableRowColumn width={160}>
+                <TableRowColumn width={230}>
                   <UserLink
                     userId={user.user.id}
                     username={user.user.username}
