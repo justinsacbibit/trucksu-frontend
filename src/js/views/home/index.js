@@ -32,7 +32,10 @@ class HomeIndexView extends React.Component {
           <TableRow>
             <TableHeaderColumn width={90}>Rank</TableHeaderColumn>
             <TableHeaderColumn width={160}>Username</TableHeaderColumn>
-            <TableHeaderColumn>PP</TableHeaderColumn>
+            <TableHeaderColumn width={130}>PP</TableHeaderColumn>
+            <TableHeaderColumn width={120}>Accuracy</TableHeaderColumn>
+            <TableHeaderColumn width={120}>Playcount</TableHeaderColumn>
+            <TableHeaderColumn>Country</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
@@ -50,8 +53,20 @@ class HomeIndexView extends React.Component {
                   />
                 </TableRowColumn>
 
-                <TableRowColumn>
+                <TableRowColumn width={130}>
                   <strong>{user.pp.toFixed(2)}pp</strong>
+                </TableRowColumn>
+
+                <TableRowColumn width={120}>
+                  {(user.accuracy * 100).toFixed(2)}%
+                </TableRowColumn>
+
+                <TableRowColumn width={120}>
+                  {user.playcount.toLocaleString()}
+                </TableRowColumn>
+
+                <TableRowColumn>
+                  {user.user.country || 'Unknown'}
                 </TableRowColumn>
               </TableRow>
             );
