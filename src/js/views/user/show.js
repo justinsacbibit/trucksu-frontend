@@ -98,7 +98,7 @@ class UserShowView extends React.Component {
                     </strong>
                     {showWeighting ?
                       <span style={{fontSize: 12}}>
-                        weighted <strong>{weight * 100}%</strong> ({Math.round(score.pp * weight)}pp)
+                        weighted <strong>{Math.round(weight * 100)}%</strong> ({Math.round(score.pp * weight)}pp)
                       </span>
                     : null}
                   </div>
