@@ -51,7 +51,7 @@ class UserShowView extends React.Component {
     this.props.dispatch(push(`/beatmaps/${beatmapId}`));
   }
 
-  _renderScoresTable(scores) {
+  _renderScoresTable(scores, showWeighting) {
     return (
       <Paper style={{width: '100%', justifyContent: 'center', display: 'flex', flexDirection: 'column'}} zDepth={1}>
         {scores.map((score, index) => {
@@ -67,10 +67,11 @@ class UserShowView extends React.Component {
               rank = 'SH';
             }
           }
+          const weight = Math.pow(0.95, index);
           return (
             <div key={index}>
               <div style={{display: 'flex', flexDirection: 'row', padding: 5}}>
-                <div style={{display: 'flex', flexDirection: 'column', width: '70%'}}>
+                <div style={{display: 'flex', flexDirection: 'column', width: '65%'}}>
                   <a
                     href={`/beatmaps/${score.beatmap.id}`}
                     onClick={this._handleBeatmapClick.bind(this, score.beatmap.id)}
@@ -91,9 +92,16 @@ class UserShowView extends React.Component {
                 &nbsp;{mods ? <strong>{mods}&nbsp;</strong> : mods}{`(${(score.accuracy * 100).toFixed(2)}%, ${score.max_combo}x)`}
                 <div style={{flex: 1}} />
                 {score.pp ?
-                  <strong style={{fontSize: 20}}>
-                    {score.pp.toFixed(2)}pp
-                  </strong>
+                  <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end'}}>
+                    <strong style={{fontSize: 20}}>
+                      {Math.round(score.pp)}pp
+                    </strong>
+                    {showWeighting ?
+                      <span style={{fontSize: 12}}>
+                        weighted <strong>{weight * 100}%</strong> ({Math.round(score.pp * weight)}pp)
+                      </span>
+                    : null}
+                  </div>
                   : 'N/A'
                 }
               </div>
@@ -143,10 +151,10 @@ class UserShowView extends React.Component {
             <div style={{flex: 1}}></div>
             <div style={{display: 'flex', alignItems: 'flex-end', flexDirection: 'column'}}>
               <h3 style={{...styles.h3, marginBottom: 0}}>#{stats.rank} <span style={{fontWeight: 200}}>in osu! Standard</span></h3>
-              <h3 style={{...styles.h3, marginTop: 0, marginBottom: 0}}><strong>{stats.pp.toFixed(2)}pp</strong></h3>
+              <h3 style={{...styles.h3, marginTop: 0, marginBottom: 0}}><strong>{Math.round(stats.pp)}pp</strong></h3>
             </div>
           </div>
-          {this._renderScoresTable(stats.scores)}
+          {this._renderScoresTable(stats.scores, true)}
           {this._renderFirstPlaceScoresTable(stats.first_place_scores)}
         </div>
       </div>
