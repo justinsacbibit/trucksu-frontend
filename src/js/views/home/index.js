@@ -10,7 +10,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 import { setDocumentTitle } from '../../utils';
 import Actions from '../../actions/boards';
 import LeaderboardActions from '../../actions/leaderboard';
+
 import UserLink from '../../components/UserLink';
+import Flag from '../../components/Flag';
 
 class HomeIndexView extends React.Component {
   static propTypes = {
@@ -40,6 +42,7 @@ class HomeIndexView extends React.Component {
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
           {this.props.leaderboard.map((user, index) => {
+            const country = user.user.country || 'BL';
             return (
               <TableRow key={index} selectable={false}>
                 <TableRowColumn width={90}>
@@ -66,7 +69,7 @@ class HomeIndexView extends React.Component {
                 </TableRowColumn>
 
                 <TableRowColumn>
-                  {user.user.country || 'Unknown'}
+                  <Flag country={country} />
                 </TableRowColumn>
               </TableRow>
             );
