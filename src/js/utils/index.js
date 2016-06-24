@@ -10,7 +10,7 @@ let _apiUrl;
 let _avatarUrl;
 if (process.env.NODE_ENV === 'production') {
   _apiUrl = 'https://api.trucksu.com';
-  _avatarUrl = 'http://a.trucksu.com';
+  _avatarUrl = 'https://a.trucksu.com';
 } else {
   const apiPort = process.env.API_PORT || 8080;
   _apiUrl = `http://localhost:${apiPort}/api`;
