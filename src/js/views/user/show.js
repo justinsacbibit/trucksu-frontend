@@ -52,6 +52,12 @@ class UserShowView extends React.Component {
     this.props.dispatch(Actions.fetchUser(this.props.params.userId));
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.userId !== this.props.params.userId) {
+      this.props.dispatch(Actions.fetchUser(nextProps.params.userId));
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { user } = this.props.currentUser;
     if (user && !prevProps.currentUser.user) {
