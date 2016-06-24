@@ -2,15 +2,23 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import Dropzone from 'react-dropzone';
+
 import CircularProgress from 'material-ui/CircularProgress';
 // import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
+import FlatButton from 'material-ui/FlatButton';
 
 import Actions from '../../actions/current_user';
 import Constants from '../../constants';
-import { setDocumentTitle } from '../../utils';
+import {
+  setDocumentTitle,
+  apiUrl,
+  avatarUrl,
+  httpPostFile,
+} from '../../utils';
 
 import { getModsArray } from '../../utils/osu';
 
@@ -28,8 +36,13 @@ const styles = {
 class UserShowView extends React.Component {
   static propTypes = {
     currentUser: PropTypes.shape({
+      user: PropTypes.shape({
+        id: PropTypes.any,
+      }),
     }).isRequired,
-    loggedInUser: PropTypes.object,
+    loggedInUser: PropTypes.shape({
+      id: PropTypes.any,
+    }),
     params: PropTypes.shape({
       userId: PropTypes.string.isRequired,
     }).isRequired,
@@ -49,6 +62,18 @@ class UserShowView extends React.Component {
   _handleBeatmapClick(beatmapId, e) {
     e.preventDefault();
     this.props.dispatch(push(`/beatmaps/${beatmapId}`));
+  }
+
+  _onDrop = (files) => {
+    const data = new FormData();
+    data.append('avatar', files[0]);
+    httpPostFile('/v1/me/avatar', data)
+    .then(() => location.reload())
+    .catch((err) => alert(`Something went wrong...: ${err.message}`));
+  }
+
+  _onPressUpload = () => {
+    this.refs.dropzone.open();
   }
 
   _renderScoresTable(scores, showWeighting) {
@@ -122,6 +147,34 @@ class UserShowView extends React.Component {
     );
   }
 
+  _renderAvatar() {
+    const avatar = (
+      <Avatar
+        size={128}
+        src={avatarUrl(`/${this.props.currentUser.user.id}`)}
+        style={{borderRadius: 0}}
+      />
+    );
+
+    if (Number(this.props.currentUser.user.id) === Number(this.props.loggedInUser.id)) {
+      return (
+        <div>
+          <Dropzone
+            accept='image/*'
+            multiple={false}
+            onDrop={this._onDrop}
+            ref='dropzone'
+            style={{cursor: 'pointer'}}
+          >
+            {avatar}
+          </Dropzone>
+        </div>
+      );
+    }
+
+    return avatar;
+  }
+
   render() {
     const { fetching, user } = this.props.currentUser;
 
@@ -140,11 +193,7 @@ class UserShowView extends React.Component {
         <div style={{width: 965}}>
           <div style={{display: 'flex', flexDirection: 'row', borderBottom: '1px solid #eee', width: '100%', marginBottom: 20}}>
             <h3 style={{...styles.h3, fontWeight: 500, display: 'flex', fontSize: '30px', margin: 0, alignItems: 'center', marginBottom: 20}}>
-              <Avatar
-                size={128}
-                src={`http://a.trucksu.com/${user.id}`}
-                style={{borderRadius: 0}}
-              />
+              {this._renderAvatar()}
               &nbsp;
               {user.username}
             </h3>
