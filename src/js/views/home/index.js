@@ -3,16 +3,28 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
+import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { setDocumentTitle } from '../../utils';
+import {
+  setDocumentTitle,
+  avatarUrl,
+} from '../../utils';
 import Actions from '../../actions/boards';
 import LeaderboardActions from '../../actions/leaderboard';
 
 import UserLink from '../../components/UserLink';
 import Flag from '../../components/Flag';
+
+
+const styles = {
+  avatarColumn: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+};
 
 class HomeIndexView extends React.Component {
   static propTypes = {
@@ -33,6 +45,7 @@ class HomeIndexView extends React.Component {
         <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn width={90}>Rank</TableHeaderColumn>
+            <TableHeaderColumn width={40} style={styles.avatarColumn}></TableHeaderColumn>
             <TableHeaderColumn width={230}>Username</TableHeaderColumn>
             <TableHeaderColumn width={130}>PP</TableHeaderColumn>
             <TableHeaderColumn width={120}>Accuracy</TableHeaderColumn>
@@ -47,6 +60,16 @@ class HomeIndexView extends React.Component {
               <TableRow key={index} selectable={false}>
                 <TableRowColumn width={90}>
                   #{index + 1}
+                </TableRowColumn>
+
+                <TableRowColumn width={40} style={styles.avatarColumn}>
+                  <div style={{display: 'flex', alignItems: 'center'}}>
+                    <Avatar
+                      size={40}
+                      src={avatarUrl(`/${user.user.id}`)}
+                      style={{borderRadius: 0}}
+                    />
+                  </div>
                 </TableRowColumn>
 
                 <TableRowColumn width={230}>
