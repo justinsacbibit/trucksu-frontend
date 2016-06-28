@@ -7,13 +7,10 @@ var env = process.env.NODE_ENV || 'dev';
 var debug = (process.env.DEBUG && true) || false;
 
 var publicPath;
-switch (env) {
-case 'dev':
+if (env === 'dev' || debug) {
   publicPath = 'http://localhost:4001/';
-  break;
-case 'production':
+} else {
   publicPath = 'https://trucksu.com/';
-  break;
 }
 
 // helpers for writing path names
