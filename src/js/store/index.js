@@ -13,7 +13,7 @@ export default function configureStore(browserHistory) {
   const reduxRouterMiddleware = routerMiddleware(browserHistory)
 
   let appliedMiddleware;
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === 'production' && !process.env.DEBUG) {
     appliedMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware);
   } else {
     appliedMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware);

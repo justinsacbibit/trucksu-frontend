@@ -4,6 +4,7 @@ var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 var env = process.env.NODE_ENV || 'dev';
+var debug = (process.env.DEBUG && true) || false;
 
 var publicPath;
 switch (env) {
@@ -86,6 +87,7 @@ var config = module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
+      'process.env.DEBUG': JSON.stringify(debug),
       'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
     }),
     new ExtractTextPlugin('css/application.css'),
@@ -93,7 +95,7 @@ var config = module.exports = {
 };
 
 // if running webpack in production mode, minify files with uglifyjs
-if (env === 'production') {
+if (env === 'production' && !debug) {
   config.plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({ minimize: true })

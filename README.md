@@ -6,7 +6,9 @@ Webpack is used to build the JS bundle.
 
 ##### Running
 
-Make sure you're running trucksu-web (the API) as well.
+###### Running API locally
+
+Make sure you're running trucksu-web (the API):
 
 ```sh
 # you could also skip this step and run it on your host machine instead.
@@ -22,6 +24,18 @@ $ npm run dev # if you are running trucksu-web on port 8080
 
 # If you are running trucksu-web on port 80, then run this instead
 $ API_PORT=80 npm run dev
+```
+
+###### Connecting to production API
+
+```sh
+# Initial setup
+$ git clone git@github.com:justinsacbibit/trucksu-frontend.git
+$ npm install # when you're not on Windows
+$ npm install --no-bin-links # only if you're on Windows
+
+# Connect to the production server, but keep things like Redux logging enabled
+$ NODE_ENV=production DEBUG=true npm run dev
 ```
 
 Now visit [http://localhost:4001](http://localhost:4001) in your browser!
