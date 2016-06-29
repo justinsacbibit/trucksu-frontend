@@ -44,9 +44,11 @@ class RegistrationsNew extends React.Component {
 
     return (
       <div id='auth_container'>
+        {/*
         <div className='logo'>
           <img src={logoImage} />
         </div>
+        */}
         <form id='auth_form'>
           <h2>Sign Up</h2>
           <Form
@@ -62,7 +64,7 @@ class RegistrationsNew extends React.Component {
             onClick={this._handleClickSubmit.bind(this)}
           />
         </form>
-        <Link to='/sign_in'>Sign in</Link>
+        <Link to='/sign-in'>Sign in</Link>
       </div>
     );
   }

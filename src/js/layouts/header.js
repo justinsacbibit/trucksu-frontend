@@ -15,55 +15,33 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import SessionActions   from '../actions/sessions';
-import HeaderActions    from '../actions/header';
+import SessionActions from '../actions/sessions';
+import HeaderActions from '../actions/header';
 
 import UserLink from '../components/UserLink';
+import HeaderButton from '../components/HeaderButton';
+
+const styles = {
+  right: {
+    display: 'flex',
+  },
+};
 
 class Header extends React.Component {
-  _handleBoardsClick(e) {
+  _handleSignOutClick(e) {
     e.preventDefault();
 
-    const { dispatch } = this.props;
-    const { ownedBoards, invitedBoards } = this.props.boards;
-
-    if (ownedBoards.length != 0 || invitedBoards.length != 0) {
-      dispatch(HeaderActions.showBoards(true));
-    } else {
-      dispatch(push('/'));
-    }
+    this.props.dispatch(SessionActions.signOut());
   }
 
-  _hideBoards() {
-    const { dispatch } = this.props;
-    dispatch(HeaderActions.showBoards(false));
-  }
+  _handleSignInClick(e) {
+    e.preventDefault();
 
-  _createBoardItem(dispatch, currentBoard, socket, board) {
-    const onClick = (e) => {
-      e.preventDefault();
-
-      if (currentBoard.id != undefined && currentBoard.id == board.id) {
-        dispatch(HeaderActions.showBoards(false));
-        return false;
-      }
-
-      dispatch(HeaderActions.visitBoard(socket, currentBoard.channel, board.id));
-    };
-
-    return (
-      <li key={board.id}>
-        <a href='#' onClick={onClick}>{board.name}</a>
-      </li>
-    );
+    this.props.dispatch(push('/sign-in'));
   }
 
   _renderCurrentUser() {
     const { currentUser } = this.props;
-
-    if (!currentUser) {
-      return false;
-    }
 
     return (
       <div style={{alignSelf: 'center'}}>
@@ -76,27 +54,40 @@ class Header extends React.Component {
   }
 
   _renderSignOutLink() {
-    if (!this.props.currentUser) {
-      return false;
-    }
-
     return (
-      <FlatButton
+      <HeaderButton
         label='Sign out'
-        labelStyle={{color: '#fff'}}
-        style={{margin: 12, marginRight: 0}}
-        onMouseUp={::this._handleSignOutClick} />
+        onPress={::this._handleSignOutClick}
+      />
     );
   }
 
-  _handleSignOutClick(e) {
-    e.preventDefault();
+  _renderSignInRegister() {
+    return (
+      <div style={styles.right}>
+        <HeaderButton
+          label='Sign in'
+          onPress={::this._handleSignInClick}
+        />
+      </div>
+    );
+  }
 
-    this.props.dispatch(SessionActions.signOut());
+  _renderRight() {
+    if (this.props.currentUser) {
+      return (
+        <div style={styles.right}>
+          {this._renderCurrentUser()}
+          {this._renderSignOutLink()}
+        </div>
+      );
+    }
+
+    return this._renderSignInRegister();
   }
 
   render() {
-    const tabsValue = this.props.location.pathname === '/'
+    const tabsValue = this.props.location && this.props.location.pathname === '/'
       ? 0
       : -1;
     return (
@@ -122,10 +113,7 @@ class Header extends React.Component {
             value={0} />
         </Tabs>
         <div style={{flex: 1}} />
-        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
-          {this._renderSignOutLink()}
-          {this._renderCurrentUser()}
-        </div>
+        {this._renderRight()}
       </AppBar>
     );
   }

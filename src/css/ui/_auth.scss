@@ -1,17 +1,17 @@
 #auth_container {
   font-family: $base-font-family;
 
-  position: absolute;
-  height: 100%;
-  width: 100%;
+  // position: absolute;
+  // height: 100%;
+  // width: 100%;
 
   padding: 0 calc(50% - 238px);
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
 
-  background-color: $main-color;
+  // background-color: $main-color;
 
   @media screen and (max-width: 492px) {
     padding: 0 8px;
