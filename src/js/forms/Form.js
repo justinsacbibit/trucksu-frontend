@@ -43,10 +43,13 @@ class Form extends React.Component {
       else if(field.minlength && value[key].length < field.minlength) {
         result[key] = `Must be at least ${field.minlength} character(s).`;
       }
-      else if(field.email && !EMAIL_REGEXP.test(value[key])) {
+      else if (field.email && field.username && !EMAIL_REGEXP.test(value[key]) && !USERNAME_REGEXP.test(value[key])) {
+        result[key] = 'Enter a valid username or email.';
+      }
+      else if(field.email && !field.username && !EMAIL_REGEXP.test(value[key])) {
         result[key] = 'Enter a valid email.';
       }
-      else if(field.username && !USERNAME_REGEXP.test(value[key])) {
+      else if(field.username && !field.email && !USERNAME_REGEXP.test(value[key])) {
         result[key] = 'Contains invalid characters.';
       }
       return result;

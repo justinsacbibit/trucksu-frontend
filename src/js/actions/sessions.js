@@ -42,13 +42,17 @@ const Actions = {
     return dispatch => {
       const authToken = localStorage.getItem('trucksuAuthToken');
 
+      dispatch({
+        type: Constants.CURRENT_USER_FETCHING,
+      });
+
       httpGet('/v1/current-user')
       .then(function (data) {
         setCurrentUser(dispatch, data);
       })
       .catch(function (error) {
         console.log(error);
-        dispatch(push('/sign_in'));
+        dispatch(push('/sign-in'));
       });
     };
   },
@@ -59,10 +63,11 @@ const Actions = {
       .then((data) => {
         localStorage.removeItem('trucksuAuthToken');
 
-        dispatch({ type: Constants.USER_SIGNED_OUT, });
+        dispatch({ type: Constants.USER_SIGNED_OUT });
 
-        dispatch(push('/sign_in'));
+        dispatch(push('/'));
 
+        // TODO: ?
         dispatch({ type: Constants.BOARDS_FULL_RESET });
       })
       .catch(function (error) {

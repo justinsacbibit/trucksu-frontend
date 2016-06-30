@@ -165,7 +165,7 @@ class UserShowView extends React.Component {
       />
     );
 
-    if (Number(this.props.currentUser.user.id) === Number(this.props.loggedInUser.id)) {
+    if (this.props.loggedInUser && Number(this.props.currentUser.user.id) === Number(this.props.loggedInUser.id)) {
       return (
         <div>
           <Dropzone

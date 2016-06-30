@@ -52,6 +52,7 @@ class BeatmapShowView extends React.Component {
   static propTypes = {
     beatmap: PropTypes.shape({
     }).isRequired,
+    loggedInUser: PropTypes.object,
     params: PropTypes.shape({
       beatmapId: PropTypes.string.isRequired,
     }).isRequired,
@@ -81,6 +82,31 @@ class BeatmapShowView extends React.Component {
   _handleBeatmapClick(beatmapId, e) {
     e.preventDefault();
     this.props.push(`/beatmaps/${beatmapId}`);
+  }
+
+  _renderDownloadSection(beatmapset, beatmap) {
+    if (!this.props.loggedInUser) {
+      return null;
+    }
+
+    return (
+      <div style={styles.headerContainer}>
+        <div>
+          <RaisedButton
+            label='Download'
+            style={{margin: 5}}
+            linkButton
+            href={apiUrl(`/v1/beatmapsets/${beatmapset.id}/download`)}
+          />
+          <RaisedButton
+            label='osu!direct'
+            style={{margin: 5}}
+            linkButton
+            href={`osu://b/${beatmap.id}`}
+          />
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -125,22 +151,7 @@ class BeatmapShowView extends React.Component {
             </div>
           </div>
 
-          <div style={styles.headerContainer}>
-            <div>
-              <RaisedButton
-                label='Download'
-                style={{margin: 5}}
-                linkButton
-                href={apiUrl(`/v1/beatmapsets/${beatmapset.id}/download`)}
-              />
-              <RaisedButton
-                label='osu!direct'
-                style={{margin: 5}}
-                linkButton
-                href={`osu://b/${beatmap.id}`}
-              />
-            </div>
-          </div>
+          {this._renderDownloadSection(beatmapset, beatmap)}
 
           <div>
             <Table>
@@ -184,6 +195,7 @@ class BeatmapShowView extends React.Component {
 
 const mapStateToProps = (state) => ({
   beatmap: state.currentBeatmap,
+  loggedInUser: state.session.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => {

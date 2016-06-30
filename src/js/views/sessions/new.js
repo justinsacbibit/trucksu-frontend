@@ -53,9 +53,11 @@ class SessionsNew extends React.Component {
   render() {
     return (
       <div id='auth_container'>
+        {/*
         <div className='logo'>
           <img src={logoImage} />
         </div>
+        */}
         <form id='auth_form'>
           <h2>Sign In</h2>
           { this._renderError() }
@@ -71,7 +73,7 @@ class SessionsNew extends React.Component {
             onClick={this._handleClickSubmit.bind(this)}
           />
         </form>
-        <Link to='/sign_up'>Create new account</Link>
+        <Link to='/sign-up'>Create new account</Link>
       </div>
     );
   }

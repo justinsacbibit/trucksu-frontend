@@ -9,6 +9,7 @@ import header               from './header';
 import leaderboard from './leaderboard';
 import currentUser from './current_user';
 import currentBeatmap from './current_beatmap';
+import verifyEmail from './verify_email';
 
 export default combineReducers({
   routing: routerReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
   leaderboard,
   currentUser,
   currentBeatmap,
+  verifyEmail,
 });
