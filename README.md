@@ -4,6 +4,10 @@ trucksu-frontend is the frontend of the Trucksu website. The application consist
 
 Webpack is used to build the JS bundle.
 
+##### Prerequisites
+
+If you're running on Windows or you'd simply like to run the app in a VM, a barebones (and untested) Vagrant setup can be found [here](https://github.com/justinsacbibit/node-vagrant).
+
 ##### Running
 
 ###### Running API locally
