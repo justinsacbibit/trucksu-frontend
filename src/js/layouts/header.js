@@ -67,7 +67,7 @@ class Header extends React.Component {
     return (
       <div style={styles.right}>
         <HeaderButton
-          label='Sign in'
+          label='Sign in or register'
           onPress={::this._handleSignInClick}
         />
       </div>

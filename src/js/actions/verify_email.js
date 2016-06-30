@@ -21,14 +21,16 @@ const Actions = {
     };
   },
 
-  resendVerificationEmail: ({ username, email } = {}) => (dispatch) => {
+  resendVerificationEmail: (input) => (dispatch) => {
     dispatch({ type: Constants.RESEND_VERIFICATION_EMAIL_LOADING });
 
     const body = {};
-    if (username) {
-      body.username = username;
-    } else if (email) {
-      body.email = email;
+    if (input) {
+      if (input.includes('@')) {
+        body.email = input;
+      } else {
+        body.username = input;
+      }
     }
 
     httpPost('/v1/resend-verification-email', body)
@@ -38,9 +40,13 @@ const Actions = {
       });
     })
     .catch((error) => {
-      dispatch({
-        type: Constants.RESEND_VERIFICATION_EMAIL_ERROR,
-        error,
+      console.log(error)
+      error.response.json()
+      .then((errorJSON) => {
+        dispatch({
+          type: Constants.RESEND_VERIFICATION_EMAIL_ERROR,
+          errors: errorJSON.errors,
+        });
       });
     });
   },
