@@ -5,7 +5,7 @@ import Fields from './fields';
 import FieldContainer from './FieldContainer';
 
 const EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const USERNAME_REGEXP = /^[-_\[\]A-Za-z0-9]+$/;
+const USERNAME_REGEXP = /^[-_\[\]A-Za-z0-9 ]+$/;
 
 class Form extends React.Component {
   static defaultProps = {
