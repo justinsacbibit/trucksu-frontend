@@ -5,6 +5,7 @@ import ReactGravatar    from 'react-gravatar';
 import { push }         from 'react-router-redux';
 
 import Paper from 'material-ui/Paper';
+import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -74,6 +75,15 @@ class Header extends React.Component {
   }
 
   _renderRight() {
+    if (this.props.loadingUser) {
+      return (
+        <CircularProgress
+          color='white'
+          size={0.5}
+        />
+      );
+    }
+
     if (this.props.currentUser) {
       return (
         <div style={styles.right}>
@@ -121,6 +131,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
+  loadingUser: state.session.loading,
   //socket: state.session.socket,
   //boards: state.boards,
   //currentBoard: state.currentBoard,

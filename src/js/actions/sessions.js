@@ -42,6 +42,10 @@ const Actions = {
     return dispatch => {
       const authToken = localStorage.getItem('trucksuAuthToken');
 
+      dispatch({
+        type: Constants.CURRENT_USER_FETCHING,
+      });
+
       httpGet('/v1/current-user')
       .then(function (data) {
         setCurrentUser(dispatch, data);
