@@ -1,7 +1,6 @@
 import Constants from '../constants';
 import {
   httpGet,
-  httpPost,
 } from '../utils';
 
 const Actions = {

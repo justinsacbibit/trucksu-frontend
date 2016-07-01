@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
@@ -30,4 +29,3 @@ class UserLink extends React.Component {
 }
 
 export default connect(state => state)(UserLink);
-

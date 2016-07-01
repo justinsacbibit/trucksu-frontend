@@ -1,6 +1,5 @@
 import Constants from '../constants';
-import { push } from 'react-router-redux';
-import { httpGet, httpPost } from '../utils';
+import { httpGet } from '../utils';
 
 const Actions = {
   fetchLeaderboard: () => {
@@ -21,4 +20,3 @@ const Actions = {
 };
 
 export default Actions;
-

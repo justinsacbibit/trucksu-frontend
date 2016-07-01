@@ -1,16 +1,22 @@
-import { Paper, RaisedButton } from 'material-ui';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import { RaisedButton } from 'material-ui';
+
 import Actions from '../../actions/registrations';
-import { setDocumentTitle, renderErrorsFor } from '../../utils';
+import { setDocumentTitle } from '../../utils';
 
 import Form from '../../forms/Form';
 import SignupFormSchema from '../../forms/schemas/SignupFormSchema';
-import logoImage from '../../../images/logo-transparent.png';
+// import logoImage from '../../../images/logo-transparent.png';
 
 class RegistrationsNew extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    errors: PropTypes.array,
+  }
+
   constructor() {
     super();
     this.state = {

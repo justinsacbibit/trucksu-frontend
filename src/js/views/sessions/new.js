@@ -1,16 +1,22 @@
-import { Paper, RaisedButton } from 'material-ui';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
+import { RaisedButton } from 'material-ui';
 
 import Actions from '../../actions/sessions';
 import { setDocumentTitle } from '../../utils';
 
 import Form from '../../forms/Form';
 import SigninFormSchema from '../../forms/schemas/SigninFormSchema';
-import logoImage from '../../../images/logo-transparent.png';
+// import logoImage from '../../../images/logo-transparent.png';
 
 class SessionsNew extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    error: PropTypes.string,
+  }
+
   constructor() {
     super();
     this.state = {

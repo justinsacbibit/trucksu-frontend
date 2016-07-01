@@ -14,11 +14,10 @@ export default function reducer(state = initialState, action = {}) {
     return { ...state, leaderboard: action.leaderboard, fetching: false };
 
   case Constants.LEADERBOARD_ERROR:
-      // TODO
+    // TODO
     return state;
 
   default:
     return state;
   }
 }
-

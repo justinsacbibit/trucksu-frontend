@@ -4,14 +4,11 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 
 import CircularProgress from 'material-ui/CircularProgress';
-import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import Actions from '../../actions/current_beatmap';
-import Constants from '../../constants';
 import {
-  setDocumentTitle,
   apiUrl,
 } from '../../utils';
 import { getModsArray } from '../../utils/osu';
@@ -51,6 +48,12 @@ const styles = {
 class BeatmapShowView extends React.Component {
   static propTypes = {
     beatmap: PropTypes.shape({
+      fetching: PropTypes.bool.isRequired,
+      beatmapset: PropTypes.shape({
+        beatmaps: PropTypes.arrayOf(PropTypes.shape({
+          id: PropTypes.number.isRequired,
+        }).isRequired).isRequired,
+      }),
     }).isRequired,
     loggedInUser: PropTypes.object,
     params: PropTypes.shape({
@@ -59,24 +62,25 @@ class BeatmapShowView extends React.Component {
 
     // actions
     fetchBeatmapset: PropTypes.func.isRequired,
+    resetBeatmapset: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired,
-  };
+  }
 
   componentDidMount() {
     this.props.fetchBeatmapset(this.props.params.beatmapId);
   }
 
-  componentWillUnmount() {
-    this.props.resetBeatmapset();
-  }
-
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (this.props.beatmap.beatmapset) {
       const matchingBeatmap = this.props.beatmap.beatmapset.beatmaps.find(beatmap => beatmap.id === Number(this.props.params.beatmapId));
       if (!matchingBeatmap) {
         this.props.fetchBeatmapset(this.props.params.beatmapId);
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetBeatmapset();
   }
 
   _handleBeatmapClick(beatmapId, e) {
@@ -120,7 +124,7 @@ class BeatmapShowView extends React.Component {
       );
     }
 
-    const beatmap = beatmapset.beatmaps.find((beatmap) => beatmap.id === Number(this.props.params.beatmapId));
+    const beatmap = beatmapset.beatmaps.find((b) => b.id === Number(this.props.params.beatmapId));
 
     return (
       <div style={styles.container}>
@@ -133,18 +137,18 @@ class BeatmapShowView extends React.Component {
             Mapped by {beatmapset.creator}
 
             <div>
-              {beatmapset.beatmaps.map((beatmap, index) => {
-                const isSelected = beatmap.id === Number(this.props.params.beatmapId);
+              {beatmapset.beatmaps.map((b, index) => {
+                const isSelected = b.id === Number(this.props.params.beatmapId);
                 return (
                   <RaisedButton
                     key={index}
-                    label={beatmap.version}
+                    label={b.version}
                     style={{ margin: 5 }}
                     primary={isSelected}
                     secondary={!isSelected}
                     linkButton
                     href={`/beatmaps/${beatmap.id}`}
-                    onClick={this._handleBeatmapClick.bind(this, beatmap.id)}
+                    onClick={this._handleBeatmapClick.bind(this, b.id)}
                   />
                 );
               })}
@@ -207,4 +211,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BeatmapShowView);
-

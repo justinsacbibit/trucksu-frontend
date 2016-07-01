@@ -1,13 +1,10 @@
 import { IndexRoute, Route } from 'react-router';
 import React from 'react';
 import MainLayout from '../layouts/main';
-import AuthenticatedContainer from '../containers/authenticated';
 import OptionalAuthenticatedContainer from '../containers/optional_authenticated';
 import HomeIndexView from '../views/home';
 import RegistrationsNew from '../views/registrations/new';
 import SessionsNew from '../views/sessions/new';
-import BoardsShowView from '../views/boards/show';
-import CardsShowView from '../views/cards/show';
 import Actions from '../actions/sessions';
 import UserShowView from '../views/user/show';
 import BeatmapShowView from '../views/beatmap/show';
@@ -26,10 +23,6 @@ export default function configRoutes(store) {
     callback();
   };
   const _ensureNotAuthenticated = (nextState, replace, callback) => {
-    const { dispatch } = store;
-    const { session } = store.getState();
-    const { currentUser } = session;
-
     if (localStorage.getItem('trucksuAuthToken')) {
       replace('/');
     }
@@ -37,9 +30,6 @@ export default function configRoutes(store) {
     callback();
   };
   const _goToHome = (nextState, replace, callback) => {
-    const { dispatch } = store;
-    const { session } = store.getState();
-
     replace('/');
 
     callback();

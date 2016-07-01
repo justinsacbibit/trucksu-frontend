@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 class FieldContainer extends React.Component {
+  static propTypes = {
+    field: PropTypes.func,
+    fieldProps: PropTypes.object,
+  }
+
   render() {
     const { field, fieldProps } = this.props;
 

@@ -18,10 +18,10 @@ export function getModsArray(curMods) {
   ];
 
   const mods = [];
-  for (var i = modMap.length - 1; i >= 0; i--) {
-    var arr = modMap[i];
-    var mod = arr[0];
-    var val = arr[1];
+  for (let i = modMap.length - 1; i >= 0; i--) {
+    const arr = modMap[i];
+    const mod = arr[0];
+    const val = arr[1];
     if (val > curMods) {
       continue;
     }
@@ -35,4 +35,3 @@ export function getModsArray(curMods) {
   mods.reverse();
   return mods;
 }
-

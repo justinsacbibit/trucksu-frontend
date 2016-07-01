@@ -1,5 +1,5 @@
 import Constants from '../constants';
-import { httpGet, httpPost } from '../utils';
+import { httpGet } from '../utils';
 
 const Actions = {
   fetchUser: (userId) => {

@@ -1,23 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import ReactGravatar from 'react-gravatar';
 import { push } from 'react-router-redux';
 
-import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 import SessionActions from '../actions/sessions';
-import HeaderActions from '../actions/header';
 
 import UserLink from '../components/UserLink';
 import HeaderButton from '../components/HeaderButton';
@@ -29,6 +18,20 @@ const styles = {
 };
 
 class Header extends React.Component {
+  static propTypes = {
+    currentUser: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+    }),
+    loadingUser: PropTypes.bool,
+
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+
+    dispatch: PropTypes.func.isRequired,
+  }
+
   _handleSignOutClick(e) {
     e.preventDefault();
 

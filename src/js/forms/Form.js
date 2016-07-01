@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Fields from './fields';
 import FieldContainer from './FieldContainer';
@@ -8,11 +8,17 @@ const EMAIL_REGEXP = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+
 const USERNAME_REGEXP = /^[-_\[\]A-Za-z0-9 ]+$/;
 
 class Form extends React.Component {
+  static propTypes = {
+    validationEnabled: PropTypes.bool,
+    schema: PropTypes.object,
+    errors: PropTypes.array,
+  }
+
   static defaultProps = {
     validationEnabled: false,
     schema: {},
     errors: [],
-  };
+  }
 
   constructor() {
     super();
@@ -23,7 +29,7 @@ class Form extends React.Component {
   }
 
   changeHandler(e) {
-    var value = this.state.value;
+    const value = this.state.value;
 
     value[e.target.name] = e.target.value;
 
@@ -31,7 +37,7 @@ class Form extends React.Component {
       this.validate(value);
     }
     this.setState({
-      value: value,
+      value,
     });
   }
 
@@ -39,24 +45,20 @@ class Form extends React.Component {
     const errors = _.reduce(this.props.schema, (result, field, key) => {
       if (field.required && _.isEmpty(value[key])) {
         result[key] = 'This is a required field.';
-      }
-      else if (field.minlength && value[key].length < field.minlength) {
+      } else if (field.minlength && value[key].length < field.minlength) {
         result[key] = `Must be at least ${field.minlength} character(s).`;
-      }
-      else if (field.email && field.username && !EMAIL_REGEXP.test(value[key]) && !USERNAME_REGEXP.test(value[key])) {
+      } else if (field.email && field.username && !EMAIL_REGEXP.test(value[key]) && !USERNAME_REGEXP.test(value[key])) {
         result[key] = 'Enter a valid username or email.';
-      }
-      else if (field.email && !field.username && !EMAIL_REGEXP.test(value[key])) {
+      } else if (field.email && !field.username && !EMAIL_REGEXP.test(value[key])) {
         result[key] = 'Enter a valid email.';
-      }
-      else if (field.username && !field.email && !USERNAME_REGEXP.test(value[key])) {
+      } else if (field.username && !field.email && !USERNAME_REGEXP.test(value[key])) {
         result[key] = 'Contains invalid characters.';
       }
       return result;
     }, {});
 
     this.setState({
-      errors: errors,
+      errors,
     });
     return _.isEmpty(errors);
   }
@@ -70,9 +72,9 @@ class Form extends React.Component {
       let element = Fields[field.field];
 
       if (element) {
-        let errors = _.reduce(this.props.errors, (result, error) => {
+        const errors = _.reduce(this.props.errors, (_result, error) => {
           return {
-            ...result,
+            ..._result,
             ...error,
           };
         }, this.state.errors);

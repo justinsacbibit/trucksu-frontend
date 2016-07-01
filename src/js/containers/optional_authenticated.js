@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from '../layouts/header';
 import SessionActions from '../actions/sessions';
@@ -16,6 +16,12 @@ const styles = {
 };
 
 class OptionalAuthenticatedContainer extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+    location: PropTypes.any,
+    dispatch: PropTypes.func.isRequired,
+  }
+
   componentDidMount() {
     // const { dispatch } = this.props;
     // dispatch(BoardsActions.fetchBoards());
@@ -28,14 +34,6 @@ class OptionalAuthenticatedContainer extends React.Component {
   }
 
   render() {
-    const {
-      currentUser,
-      dispatch,
-      boards,
-      socket,
-      currentBoard,
-    } = this.props;
-
     return (
       <div className='application-container'>
         <Header location={this.props.location} />
@@ -56,4 +54,3 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default connect(mapStateToProps)(OptionalAuthenticatedContainer);
-
