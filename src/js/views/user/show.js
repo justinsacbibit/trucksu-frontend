@@ -9,13 +9,10 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
 
 import Actions from '../../actions/current_user';
-import Constants from '../../constants';
 import {
   setDocumentTitle,
-  apiUrl,
   avatarUrl,
   httpPostFile,
 } from '../../utils';
@@ -27,15 +24,14 @@ const styles = {
     fontFamily: 'Roboto,sans-serif',
     fontWeight: 400,
   },
-  h3: {
-    fontFamily: 'Roboto,sans-serif',
-    fontWeight: 400,
-  },
 };
 
 class UserShowView extends React.Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+
     currentUser: PropTypes.shape({
+      fetching: PropTypes.bool,
       user: PropTypes.shape({
         id: PropTypes.any,
       }),

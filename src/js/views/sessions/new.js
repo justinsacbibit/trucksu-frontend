@@ -42,7 +42,10 @@ class SessionsNew extends React.Component {
   _renderError() {
     let { error } = this.props;
 
-    if (!error) return false;
+    if (!error) {
+      return null;
+    }
+
     return (
       <div className='error'>
         { error }
