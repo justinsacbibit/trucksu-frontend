@@ -1,23 +1,12 @@
-import React            from 'react';
-import { connect }      from 'react-redux';
-import { Link }         from 'react-router';
-import ReactGravatar    from 'react-gravatar';
-import { push }         from 'react-router-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Tabs, Tab } from 'material-ui/Tabs';
 
 import SessionActions from '../actions/sessions';
-import HeaderActions from '../actions/header';
 
 import UserLink from '../components/UserLink';
 import HeaderButton from '../components/HeaderButton';
@@ -29,6 +18,20 @@ const styles = {
 };
 
 class Header extends React.Component {
+  static propTypes = {
+    currentUser: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      username: PropTypes.string.isRequired,
+    }),
+    loadingUser: PropTypes.bool,
+
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+
+    dispatch: PropTypes.func.isRequired,
+  }
+
   _handleSignOutClick(e) {
     e.preventDefault();
 
@@ -45,7 +48,7 @@ class Header extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <div style={{alignSelf: 'center'}}>
+      <div style={{ alignSelf: 'center' }}>
         <UserLink
           userId={currentUser.id}
           username={currentUser.username}
@@ -104,25 +107,25 @@ class Header extends React.Component {
       <AppBar
         showMenuIconButton={false}
         title='Trucksu'
-        titleStyle={{marginRight: 24, flex: 'none'}}>
+        titleStyle={{ marginRight: 24, flex: 'none' }}>
         <Tabs
           onChange={(value) => {
             if (value === 0) {
               this.props.dispatch(push('/'));
             }
           }}
-          style={{flex: 'none', height: 64}}
+          style={{ flex: 'none', height: 64 }}
           value={tabsValue}>
-          {/*<Tab
+          {/* <Tab
             label='Home'
             style={{height: 64}}
             value={0} />*/}
           <Tab
             label='Leaderboard'
-            style={{height: 64, width: 140}}
+            style={{ height: 64, width: 140 }}
             value={0} />
         </Tabs>
-        <div style={{flex: 1}} />
+        <div style={{ flex: 1 }} />
         {this._renderRight()}
       </AppBar>
     );

@@ -1,26 +1,25 @@
-import { push }                           from 'react-router-redux';
-import Constants                          from '../constants';
-import { Socket }                         from '../phoenix';
-import { httpGet, httpPost, httpDelete }  from '../utils';
+import { push } from 'react-router-redux';
+import Constants from '../constants';
+import { httpGet, httpPost, httpDelete } from '../utils';
 
 export function setCurrentUser(dispatch, user) {
   dispatch({
     type: Constants.CURRENT_USER,
     currentUser: user,
   });
-};
+}
 
 const Actions = {
   signIn: (username, password) => {
     return dispatch => {
-      const data = {
+      const body = {
         session: {
           username,
           password,
         },
       };
 
-      httpPost('/v1/sessions', data)
+      httpPost('/v1/sessions', body)
       .then((data) => {
         localStorage.setItem('trucksuAuthToken', data.jwt);
         setCurrentUser(dispatch, data.user);
@@ -40,17 +39,15 @@ const Actions = {
 
   currentUser: () => {
     return dispatch => {
-      const authToken = localStorage.getItem('trucksuAuthToken');
-
       dispatch({
         type: Constants.CURRENT_USER_FETCHING,
       });
 
       httpGet('/v1/current-user')
-      .then(function (data) {
+      .then((data) => {
         setCurrentUser(dispatch, data);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
         dispatch(push('/sign-in'));
       });
@@ -60,7 +57,7 @@ const Actions = {
   signOut: () => {
     return dispatch => {
       httpDelete('/v1/sessions')
-      .then((data) => {
+      .then(() => {
         localStorage.removeItem('trucksuAuthToken');
 
         dispatch({ type: Constants.USER_SIGNED_OUT });
@@ -70,7 +67,7 @@ const Actions = {
         // TODO: ?
         dispatch({ type: Constants.BOARDS_FULL_RESET });
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
     };

@@ -1,13 +1,13 @@
-import { push }   from 'react-router-redux';
-import Constants          from '../constants';
-import { httpPost }       from '../utils';
-import {setCurrentUser}   from './sessions';
+import { push } from 'react-router-redux';
+import Constants from '../constants';
+import { httpPost } from '../utils';
+import { setCurrentUser } from './sessions';
 
 const Actions = {};
 
-Actions.signUp = (data) => {
+Actions.signUp = (body) => {
   return dispatch => {
-    httpPost('/v1/registrations', { user: data })
+    httpPost('/v1/registrations', { user: body })
     .then((data) => {
       localStorage.setItem('trucksuAuthToken', data.jwt);
 

@@ -1,5 +1,5 @@
 import Constants from '../constants';
-import { httpPost, apiUrl } from '../utils';
+import { httpPost } from '../utils';
 
 const Actions = {
   verifyEmail: (token) => {
@@ -7,7 +7,7 @@ const Actions = {
       dispatch({ type: Constants.VERIFY_EMAIL_LOADING });
 
       httpPost('/v1/verify-email', { token })
-      .then((data) => {
+      .then(() => {
         dispatch({
           type: Constants.VERIFY_EMAIL_COMPLETED,
         });
@@ -34,13 +34,13 @@ const Actions = {
     }
 
     httpPost('/v1/resend-verification-email', body)
-    .then((data) => {
+    .then(() => {
       dispatch({
         type: Constants.RESEND_VERIFICATION_EMAIL_COMPLETED,
       });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       error.response.json()
       .then((errorJSON) => {
         dispatch({

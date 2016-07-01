@@ -1,7 +1,7 @@
-import React            from 'react';
-import { connect }      from 'react-redux';
-import Header           from '../layouts/header';
-import SessionActions   from '../actions/sessions';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Header from '../layouts/header';
+import SessionActions from '../actions/sessions';
 
 
 const styles = {
@@ -16,9 +16,15 @@ const styles = {
 };
 
 class OptionalAuthenticatedContainer extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+    location: PropTypes.any,
+    dispatch: PropTypes.func.isRequired,
+  }
+
   componentDidMount() {
-    //const { dispatch } = this.props;
-    //dispatch(BoardsActions.fetchBoards());
+    // const { dispatch } = this.props;
+    // dispatch(BoardsActions.fetchBoards());
   }
 
   _handleSignOutClick(e) {
@@ -28,14 +34,6 @@ class OptionalAuthenticatedContainer extends React.Component {
   }
 
   render() {
-    const {
-      currentUser,
-      dispatch,
-      boards,
-      socket,
-      currentBoard,
-    } = this.props;
-
     return (
       <div className='application-container'>
         <Header location={this.props.location} />
@@ -55,5 +53,4 @@ const mapStateToProps = (state, props) => ({
   location: props.location,
 });
 
-export default connect(mapStateToProps)(OptionalAuthenticatedContainer );
-
+export default connect(mapStateToProps)(OptionalAuthenticatedContainer);

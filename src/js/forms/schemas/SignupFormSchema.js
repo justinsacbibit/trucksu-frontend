@@ -23,7 +23,7 @@ const SignupFormSchema = {
     required: true,
     minlength: 5,
   },
-  password_confirmation: {
+  password_confirmation: { // eslint-disable-line camelcase
     field: 'text',
     type: 'password',
     placeholder: 'Confirm Password',

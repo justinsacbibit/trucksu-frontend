@@ -1,16 +1,22 @@
-import { Paper, RaisedButton } from 'material-ui';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
+import { RaisedButton } from 'material-ui';
 
 import Actions from '../../actions/sessions';
 import { setDocumentTitle } from '../../utils';
 
 import Form from '../../forms/Form';
 import SigninFormSchema from '../../forms/schemas/SigninFormSchema';
-import logoImage from '../../../images/logo-transparent.png';
+// import logoImage from '../../../images/logo-transparent.png';
 
 class SessionsNew extends React.Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    error: PropTypes.string,
+  }
+
   constructor() {
     super();
     this.state = {
@@ -27,7 +33,7 @@ class SessionsNew extends React.Component {
 
     const { form } = this.refs;
 
-    if(form.validate()) {
+    if (form.validate()) {
       const { username, password } = form.getValue();
       const { dispatch } = this.props;
 
@@ -42,7 +48,10 @@ class SessionsNew extends React.Component {
   _renderError() {
     let { error } = this.props;
 
-    if (!error) return false;
+    if (!error) {
+      return null;
+    }
+
     return (
       <div className='error'>
         { error }
@@ -69,7 +78,7 @@ class SessionsNew extends React.Component {
           <RaisedButton
             label='Sign In'
             type='submit'
-            primary={true}
+            primary
             onClick={this._handleClickSubmit.bind(this)}
           />
         </form>

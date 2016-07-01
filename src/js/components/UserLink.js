@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
@@ -21,7 +20,7 @@ class UserLink extends React.Component {
       <a
         href={`/users/${this.props.userId}`}
         onClick={this._handleUserClick}
-        style={{color: '#0000FF', cursor: 'pointer', textDecoration: 'none'}}
+        style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none' }}
       >
         {this.props.username}
       </a>
@@ -30,4 +29,3 @@ class UserLink extends React.Component {
 }
 
 export default connect(state => state)(UserLink);
-

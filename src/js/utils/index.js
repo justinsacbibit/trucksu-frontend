@@ -1,6 +1,5 @@
-import React        from 'react';
-import fetch        from 'isomorphic-fetch';
-import { polyfill } from 'es6-promise';
+import React from 'react';
+import fetch from 'isomorphic-fetch';
 
 const defaultHeaders = {
   Accept: 'application/json',
@@ -34,11 +33,11 @@ function buildHeaders() {
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
-  } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
   }
+
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
 }
 
 export function parseJSON(response) {
@@ -93,15 +92,19 @@ export function setDocumentTitle(title) {
 }
 
 export function renderErrorsFor(errors, ref) {
-  if (!errors) return false;
+  if (!errors) {
+    return false;
+  }
 
   return errors.map((error, i) => {
     if (error[ref]) {
       return (
-        <div key={i} className="error">
+        <div key={i} className='error'>
           {error[ref]}
         </div>
       );
     }
+
+    return null;
   });
 }

@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 
 import Actions from '../../actions/verify_email';
 import {
@@ -26,6 +24,8 @@ const styles = {
 
 class VerifyEmailView extends React.Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+
     location: PropTypes.shape({
       query: PropTypes.shape({
         t: PropTypes.string.isRequired,
