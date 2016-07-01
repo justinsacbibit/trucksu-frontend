@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import Paper from 'material-ui/Paper';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import {
@@ -63,11 +63,11 @@ class HomeIndexView extends React.Component {
                 </TableRowColumn>
 
                 <TableRowColumn width={40} style={styles.avatarColumn}>
-                  <div style={{display: 'flex', alignItems: 'center'}}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Avatar
                       size={40}
                       src={avatarUrl(`/${user.user.id}`)}
-                      style={{borderRadius: 0}}
+                      style={{ borderRadius: 0 }}
                     />
                   </div>
                 </TableRowColumn>
@@ -104,10 +104,10 @@ class HomeIndexView extends React.Component {
 
   render() {
     return (
-      <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'row'}}>
-        <div style={{width: 965}}>
-          <h2 style={{fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400}}>Global Performance Leaderboard</h2>
-          <Paper style={{width: '100%', justifyContent: 'center', display: 'flex'}} zDepth={1}>
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
+        <div style={{ width: 965 }}>
+          <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Global Performance Leaderboard</h2>
+          <Paper style={{ width: '100%', justifyContent: 'center', display: 'flex' }} zDepth={1}>
             {this.props.fetching ? <CircularProgress size={2} /> : this._renderTable()}
           </Paper>
         </div>

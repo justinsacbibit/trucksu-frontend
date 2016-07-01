@@ -27,7 +27,7 @@ class Form extends React.Component {
 
     value[e.target.name] = e.target.value;
 
-    if(this.props.validationEnabled) {
+    if (this.props.validationEnabled) {
       this.validate(value);
     }
     this.setState({
@@ -37,19 +37,19 @@ class Form extends React.Component {
 
   validate(value = this.state.value) {
     const errors = _.reduce(this.props.schema, (result, field, key) => {
-      if(field.required && _.isEmpty(value[key])) {
+      if (field.required && _.isEmpty(value[key])) {
         result[key] = 'This is a required field.';
       }
-      else if(field.minlength && value[key].length < field.minlength) {
+      else if (field.minlength && value[key].length < field.minlength) {
         result[key] = `Must be at least ${field.minlength} character(s).`;
       }
       else if (field.email && field.username && !EMAIL_REGEXP.test(value[key]) && !USERNAME_REGEXP.test(value[key])) {
         result[key] = 'Enter a valid username or email.';
       }
-      else if(field.email && !field.username && !EMAIL_REGEXP.test(value[key])) {
+      else if (field.email && !field.username && !EMAIL_REGEXP.test(value[key])) {
         result[key] = 'Enter a valid email.';
       }
-      else if(field.username && !field.email && !USERNAME_REGEXP.test(value[key])) {
+      else if (field.username && !field.email && !USERNAME_REGEXP.test(value[key])) {
         result[key] = 'Contains invalid characters.';
       }
       return result;
@@ -69,7 +69,7 @@ class Form extends React.Component {
     const fields = _.reduce(this.props.schema, (result, field, key) => {
       let element = Fields[field.field];
 
-      if(element) {
+      if (element) {
         let errors = _.reduce(this.props.errors, (result, error) => {
           return {
             ...result,

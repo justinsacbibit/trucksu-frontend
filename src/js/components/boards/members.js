@@ -1,9 +1,9 @@
-import React, {PropTypes}       from 'react';
-import ReactGravatar            from 'react-gravatar';
-import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
-import classnames               from 'classnames';
-import PageClick                from 'react-page-click';
-import Actions                  from '../../actions/current_board';
+import React, { PropTypes } from 'react';
+import ReactGravatar from 'react-gravatar';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classnames from 'classnames';
+import PageClick from 'react-page-click';
+import Actions from '../../actions/current_board';
 
 export default class BoardMembers extends React.Component {
   _renderUsers() {
@@ -16,7 +16,7 @@ export default class BoardMembers extends React.Component {
 
       return (
         <li className={classes} key={member.id}>
-          <ReactGravatar className="react-gravatar" email={member.email} https/>
+          <ReactGravatar className='react-gravatar' email={member.email} https/>
         </li>
       );
     });
@@ -27,7 +27,7 @@ export default class BoardMembers extends React.Component {
 
     return (
       <li>
-        <a onClick={::this._handleAddNewClick} className="add-new" href="#"><i className="fa fa-plus"/></a>
+        <a onClick={::this._handleAddNewClick} className='add-new' href='#'><i className='fa fa-plus'/></a>
         {::this._renderForm()}
       </li>
     );
@@ -38,13 +38,13 @@ export default class BoardMembers extends React.Component {
 
     return (
       <PageClick onClick={::this._handleCancelClick}>
-        <ul className="drop-down active">
+        <ul className='drop-down active'>
           <li>
             <form onSubmit={::this._handleSubmit}>
               <h4>Add new members</h4>
               {::this._renderError()}
-              <input ref="email" type="email" required={true} placeholder="Member email"/>
-              <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
+              <input ref='email' type='email' required placeholder='Member email'/>
+              <button type='submit'>Add member</button> or <a onClick={::this._handleCancelClick} href='#'>cancel</a>
             </form>
           </li>
         </ul>
@@ -58,7 +58,7 @@ export default class BoardMembers extends React.Component {
     if (!error) return false;
 
     return (
-      <div className="error">
+      <div className='error'>
         {error}
       </div>
     );
@@ -87,10 +87,10 @@ export default class BoardMembers extends React.Component {
 
   render() {
     return (
-      <ul className="board-users">
+      <ul className='board-users'>
         <ReactCSSTransitionGroup
-          transitionName="avatar"
-          transitionAppear={true}
+          transitionName='avatar'
+          transitionAppear
           transitionAppearTimeout={500}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>

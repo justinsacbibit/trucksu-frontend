@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
-import { connect }        from 'react-redux';
-import CardModal          from '../../components/cards/modal';
-import Actions            from '../../actions/current_card';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import CardModal from '../../components/cards/modal';
+import Actions from '../../actions/current_card';
 
 class CardsShowView extends React.Component {
   componentDidMount() {

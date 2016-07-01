@@ -40,7 +40,7 @@ const Actions = {
       });
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       error.response.json()
       .then((errorJSON) => {
         dispatch({

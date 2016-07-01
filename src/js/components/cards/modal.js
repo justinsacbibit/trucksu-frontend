@@ -1,13 +1,13 @@
-import React, {PropTypes} from 'react';
-import ReactGravatar      from 'react-gravatar';
-import PageClick          from 'react-page-click';
-import moment             from 'moment';
-import { push }           from 'react-router-redux';
+import React, { PropTypes } from 'react';
+import ReactGravatar from 'react-gravatar';
+import PageClick from 'react-page-click';
+import moment from 'moment';
+import { push } from 'react-router-redux';
 
-import Actions            from '../../actions/current_card';
-import BoardActions       from '../../actions/current_board';
-import MembersSelector    from './members_selector';
-import TagsSelector       from './tags_selector';
+import Actions from '../../actions/current_card';
+import BoardActions from '../../actions/current_board';
+import MembersSelector from './members_selector';
+import TagsSelector from './tags_selector';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -28,21 +28,21 @@ export default class CardModal extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <div className="form-wrapper">
+      <div className='form-wrapper'>
         <form onSubmit={::this._handleCommentFormSubmit}>
           <header>
             <h4>Add comment</h4>
           </header>
-          <div className="gravatar-wrapper">
-            <ReactGravatar className="react-gravatar" email={currentUser.email} https />
+          <div className='gravatar-wrapper'>
+            <ReactGravatar className='react-gravatar' email={currentUser.email} https />
           </div>
-          <div className="form-controls">
+          <div className='form-controls'>
             <textarea
-              ref="commentText"
-              rows="5"
-              placeholder="Write a comment..."
-              required="true"/>
-            <button type="submit">Save comment</button>
+              ref='commentText'
+              rows='5'
+              placeholder='Write a comment...'
+              required='true'/>
+            <button type='submit'>Save comment</button>
           </div>
         </form>
       </div>
@@ -73,13 +73,13 @@ export default class CardModal extends React.Component {
       const { user } = comment;
 
       return (
-        <div key={comment.id} className="comment">
-          <div className="gravatar-wrapper">
-            <ReactGravatar className="react-gravatar" email={user.email} https />
+        <div key={comment.id} className='comment'>
+          <div className='gravatar-wrapper'>
+            <ReactGravatar className='react-gravatar' email={user.email} https />
           </div>
-          <div className="info-wrapper">
+          <div className='info-wrapper'>
             <h5>{user.first_name}</h5>
-            <div className="text">
+            <div className='text'>
               {comment.text}
             </div>
             <small>{moment(comment.inserted_at).fromNow()}</small>
@@ -89,7 +89,7 @@ export default class CardModal extends React.Component {
     });
 
     return (
-      <div className="comments-wrapper">
+      <div className='comments-wrapper'>
         <h4>Activity</h4>
         {comments}
       </div>
@@ -129,21 +129,21 @@ export default class CardModal extends React.Component {
 
     if (edit) {
       return (
-        <header className="editing">
+        <header className='editing'>
           <form onSubmit={::this._handleFormSubmit}>
             <input
-              ref="name"
-              type="text"
-              placeholder="Title"
-              required="true"
+              ref='name'
+              type='text'
+              placeholder='Title'
+              required='true'
               defaultValue={card.name} />
             <textarea
-              ref="description"
-              type="text"
-              placeholder="Description"
-              rows="5"
+              ref='description'
+              type='text'
+              placeholder='Description'
+              rows='5'
               defaultValue={card.description} />
-            <button type="submit">Save card</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+            <button type='submit'>Save card</button> or <a href='#' onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </header>
       );
@@ -151,13 +151,13 @@ export default class CardModal extends React.Component {
       return (
         <header>
           <h3>{card.name}</h3>
-          <div className="items-wrapper">
+          <div className='items-wrapper'>
             {::this._renderMembers()}
             {::this._renderTags()}
           </div>
           <h5>Description</h5>
           <p>{card.description}</p>
-          <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
+          <a href='#' onClick={::this._handleHeaderClick}>Edit</a>
         </header>
       );
     }
@@ -169,11 +169,11 @@ export default class CardModal extends React.Component {
     if (members.length == 0) return false;
 
     const memberNodes = members.map((member) => {
-      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />;
+      return <ReactGravatar className='react-gravatar' key={member.id} email={member.email} https />;
     });
 
     return (
-      <div className="card-members">
+      <div className='card-members'>
       <h5>Members</h5>
         {memberNodes}
       </div>
@@ -190,7 +190,7 @@ export default class CardModal extends React.Component {
     });
 
     return (
-      <div className="card-tags">
+      <div className='card-tags'>
       <h5>Tags</h5>
         {tagsNodes}
       </div>
@@ -263,26 +263,26 @@ export default class CardModal extends React.Component {
     const { members } = card;
 
     return (
-      <div className="md-overlay">
-        <div className="md-modal">
+      <div className='md-overlay'>
+        <div className='md-modal'>
           <PageClick onClick={::this._closeModal}>
-            <div className="md-content card-modal">
-              <a className="close" href="#" onClick={::this._closeModal}>
-                <i className="fa fa-close"/>
+            <div className='md-content card-modal'>
+              <a className='close' href='#' onClick={::this._closeModal}>
+                <i className='fa fa-close'/>
               </a>
-              <div className="info">
+              <div className='info'>
                 {::this._renderHeader()}
                 {::this._renderCommentForm()}
                 {::this._renderComments(card)}
               </div>
-              <div className="options">
+              <div className='options'>
                 <h4>Add</h4>
-                <a className="button" href="#" onClick={::this._handleShowMembersClick}>
-                  <i className="fa fa-user"/> Members
+                <a className='button' href='#' onClick={::this._handleShowMembersClick}>
+                  <i className='fa fa-user'/> Members
                 </a>
                 {::this._renderMembersSelector()}
-                <a className="button" href="#" onClick={::this._handleShowTagsClick}>
-                  <i className="fa fa-tag"/> Tags
+                <a className='button' href='#' onClick={::this._handleShowTagsClick}>
+                  <i className='fa fa-tag'/> Tags
                 </a>
                 {::this._renderTagsSelector()}
               </div>

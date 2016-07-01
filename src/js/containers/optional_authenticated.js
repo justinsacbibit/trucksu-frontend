@@ -1,7 +1,7 @@
-import React            from 'react';
-import { connect }      from 'react-redux';
-import Header           from '../layouts/header';
-import SessionActions   from '../actions/sessions';
+import React from 'react';
+import { connect } from 'react-redux';
+import Header from '../layouts/header';
+import SessionActions from '../actions/sessions';
 
 
 const styles = {
@@ -17,8 +17,8 @@ const styles = {
 
 class OptionalAuthenticatedContainer extends React.Component {
   componentDidMount() {
-    //const { dispatch } = this.props;
-    //dispatch(BoardsActions.fetchBoards());
+    // const { dispatch } = this.props;
+    // dispatch(BoardsActions.fetchBoards());
   }
 
   _handleSignOutClick(e) {
@@ -55,5 +55,5 @@ const mapStateToProps = (state, props) => ({
   location: props.location,
 });
 
-export default connect(mapStateToProps)(OptionalAuthenticatedContainer );
+export default connect(mapStateToProps)(OptionalAuthenticatedContainer);
 

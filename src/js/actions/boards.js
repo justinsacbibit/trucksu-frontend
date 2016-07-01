@@ -1,7 +1,7 @@
-import Constants              from '../constants';
-import { push }               from 'react-router-redux';
-import { httpGet, httpPost }  from '../utils';
-import CurrentBoardActions    from './current_board';
+import Constants from '../constants';
+import { push } from 'react-router-redux';
+import { httpGet, httpPost } from '../utils';
+import CurrentBoardActions from './current_board';
 
 const Actions = {
   fetchBoards: () => {

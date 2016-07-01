@@ -1,5 +1,5 @@
-import React        from 'react';
-import fetch        from 'isomorphic-fetch';
+import React from 'react';
+import fetch from 'isomorphic-fetch';
 import { polyfill } from 'es6-promise';
 
 const defaultHeaders = {
@@ -98,7 +98,7 @@ export function renderErrorsFor(errors, ref) {
   return errors.map((error, i) => {
     if (error[ref]) {
       return (
-        <div key={i} className="error">
+        <div key={i} className='error'>
           {error[ref]}
         </div>
       );

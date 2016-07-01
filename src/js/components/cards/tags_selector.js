@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
-import PageClick          from 'react-page-click';
-import ReactGravatar      from 'react-gravatar';
-import classnames         from 'classnames';
+import React, { PropTypes } from 'react';
+import PageClick from 'react-page-click';
+import ReactGravatar from 'react-gravatar';
+import classnames from 'classnames';
 
-import Actions            from '../../actions/current_card';
+import Actions from '../../actions/current_card';
 
 export default class TagsSelector extends React.Component {
   _close(e) {
@@ -61,7 +61,7 @@ export default class TagsSelector extends React.Component {
 
       return (
         <li key={tag}>
-          <a className={`tag ${tag} ${linkClasses}`} onClick={handleOnClick} href="#">
+          <a className={`tag ${tag} ${linkClasses}`} onClick={handleOnClick} href='#'>
             {icon}
           </a>
         </li>
@@ -78,8 +78,8 @@ export default class TagsSelector extends React.Component {
   render() {
     return (
       <PageClick onClick={::this._close}>
-        <div className="tags-selector">
-          <header>Tags <a className="close" onClick={::this._close} href="#"><i className="fa fa-close" /></a></header>
+        <div className='tags-selector'>
+          <header>Tags <a className='close' onClick={::this._close} href='#'><i className='fa fa-close' /></a></header>
           {::this._renderTagsList()}
         </div>
       </PageClick>

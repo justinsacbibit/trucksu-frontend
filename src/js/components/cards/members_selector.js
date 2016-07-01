@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
-import PageClick          from 'react-page-click';
-import ReactGravatar      from 'react-gravatar';
-import classnames         from 'classnames';
+import React, { PropTypes } from 'react';
+import PageClick from 'react-page-click';
+import ReactGravatar from 'react-gravatar';
+import classnames from 'classnames';
 
-import Actions            from '../../actions/current_card';
+import Actions from '../../actions/current_card';
 
 export default class MembersSelector extends React.Component {
   _close(e) {
@@ -45,8 +45,8 @@ export default class MembersSelector extends React.Component {
 
       return (
         <li key={member.id}>
-          <a onClick={handleOnClick} href="#">
-            <ReactGravatar className="react-gravatar" email={member.email} https />
+          <a onClick={handleOnClick} href='#'>
+            <ReactGravatar className='react-gravatar' email={member.email} https />
             {`${member.first_name} ${member.last_name}`} {icon}
           </a>
         </li>
@@ -63,8 +63,8 @@ export default class MembersSelector extends React.Component {
   render() {
     return (
       <PageClick onClick={::this._close}>
-        <div className="members-selector">
-          <header>Members <a className="close" onClick={::this._close} href="#"><i className="fa fa-close" /></a></header>
+        <div className='members-selector'>
+          <header>Members <a className='close' onClick={::this._close} href='#'><i className='fa fa-close' /></a></header>
           {::this._renderMembersList()}
         </div>
       </PageClick>

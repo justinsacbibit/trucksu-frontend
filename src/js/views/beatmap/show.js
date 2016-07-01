@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 import Actions from '../../actions/current_beatmap';
 import Constants from '../../constants';
@@ -94,13 +94,13 @@ class BeatmapShowView extends React.Component {
         <div>
           <RaisedButton
             label='Download'
-            style={{margin: 5}}
+            style={{ margin: 5 }}
             linkButton
             href={apiUrl(`/v1/beatmapsets/${beatmapset.id}/download`)}
           />
           <RaisedButton
             label='osu!direct'
-            style={{margin: 5}}
+            style={{ margin: 5 }}
             linkButton
             href={`osu://b/${beatmap.id}`}
           />
@@ -139,7 +139,7 @@ class BeatmapShowView extends React.Component {
                   <RaisedButton
                     key={index}
                     label={beatmap.version}
-                    style={{margin: 5}}
+                    style={{ margin: 5 }}
                     primary={isSelected}
                     secondary={!isSelected}
                     linkButton

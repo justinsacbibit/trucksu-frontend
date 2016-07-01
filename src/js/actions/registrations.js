@@ -1,7 +1,7 @@
-import { push }   from 'react-router-redux';
-import Constants          from '../constants';
-import { httpPost }       from '../utils';
-import {setCurrentUser}   from './sessions';
+import { push } from 'react-router-redux';
+import Constants from '../constants';
+import { httpPost } from '../utils';
+import { setCurrentUser } from './sessions';
 
 const Actions = {};
 

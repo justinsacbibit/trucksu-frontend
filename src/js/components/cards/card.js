@@ -1,10 +1,10 @@
-import React, {PropTypes}       from 'react';
-import {DragSource, DropTarget} from 'react-dnd';
-import { push }                 from 'react-router-redux';
-import ReactGravatar            from 'react-gravatar';
+import React, { PropTypes } from 'react';
+import { DragSource, DropTarget } from 'react-dnd';
+import { push } from 'react-router-redux';
+import ReactGravatar from 'react-gravatar';
 
-import ItemTypes                from '../../constants/item_types';
-import Actions                  from '../../actions/current_board';
+import ItemTypes from '../../constants/item_types';
+import Actions from '../../actions/current_board';
 
 const cardSource = {
   beginDrag(props) {
@@ -40,11 +40,11 @@ const cardTarget = {
 
 @DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
+  isDragging: monitor.isDragging(),
 }))
 
 @DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
+  connectDropTarget: connect.dropTarget(),
 }))
 
 export default class Card extends React.Component {
@@ -60,12 +60,12 @@ export default class Card extends React.Component {
 
     if (comments.length > 0) {
       commentIcon = <small>
-        <i className="fa fa-comment-o"/> {comments.length}
+        <i className='fa fa-comment-o'/> {comments.length}
       </small>;
     }
 
     const memberNodes = members.map((member) => {
-      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />;
+      return <ReactGravatar className='react-gravatar' key={member.id} email={member.email} https />;
     });
 
     return (
@@ -86,7 +86,7 @@ export default class Card extends React.Component {
     });
 
     return (
-      <div className="tags-wrapper">
+      <div className='tags-wrapper'>
         {tagsNodes}
       </div>
     );
@@ -101,7 +101,7 @@ export default class Card extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div id={`card_${id}`} className="card" style={styles} onClick={::this._handleClick}>
+        <div id={`card_${id}`} className='card' style={styles} onClick={::this._handleClick}>
           {::this._renderTags()}
           {name}
           {::this._renderFooter()}

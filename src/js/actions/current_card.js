@@ -1,5 +1,5 @@
-import Constants  from '../constants';
-import {httpGet} from '../utils';
+import Constants from '../constants';
+import { httpGet } from '../utils';
 
 const Actions = {
   showCard: (boardId, cardId) => {

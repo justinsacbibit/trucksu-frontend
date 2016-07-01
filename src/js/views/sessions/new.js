@@ -27,7 +27,7 @@ class SessionsNew extends React.Component {
 
     const { form } = this.refs;
 
-    if(form.validate()) {
+    if (form.validate()) {
       const { username, password } = form.getValue();
       const { dispatch } = this.props;
 
@@ -69,7 +69,7 @@ class SessionsNew extends React.Component {
           <RaisedButton
             label='Sign In'
             type='submit'
-            primary={true}
+            primary
             onClick={this._handleClickSubmit.bind(this)}
           />
         </form>

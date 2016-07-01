@@ -1,14 +1,14 @@
-import React, {PropTypes}   from 'react';
-import { connect }          from 'react-redux';
-import {DragDropContext}    from 'react-dnd';
-import HTML5Backend         from 'react-dnd-html5-backend';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-import Actions              from '../../actions/current_board';
-import Constants            from '../../constants';
+import Actions from '../../actions/current_board';
+import Constants from '../../constants';
 import { setDocumentTitle } from '../../utils';
-import ListForm             from '../../components/lists/form';
-import ListCard             from '../../components/lists/card';
-import BoardMembers           from '../../components/boards/members';
+import ListForm from '../../components/lists/form';
+import ListCard from '../../components/lists/card';
+import BoardMembers from '../../components/boards/members';
 
 @DragDropContext(HTML5Backend)
 
@@ -94,8 +94,8 @@ class BoardsShowView extends React.Component {
 
   _renderAddButton() {
     return (
-      <div className="list add-new" onClick={::this._handleAddNewClick}>
-        <div className="inner">
+      <div className='list add-new' onClick={::this._handleAddNewClick}>
+        <div className='inner'>
           Add new list...
         </div>
       </div>
@@ -185,20 +185,20 @@ class BoardsShowView extends React.Component {
     const { fetching, name } = this.props.currentBoard;
 
     if (fetching) return (
-      <div className="view-container boards show">
-        <i className="fa fa-spinner fa-spin"/>
+      <div className='view-container boards show'>
+        <i className='fa fa-spinner fa-spin'/>
       </div>
     );
 
     return (
-      <div className="view-container boards show">
-        <header className="view-header">
+      <div className='view-container boards show'>
+        <header className='view-header'>
           <h3>{name}</h3>
           {::this._renderMembers()}
         </header>
-        <div className="canvas-wrapper">
-          <div className="canvas">
-            <div className="lists-wrapper">
+        <div className='canvas-wrapper'>
+          <div className='canvas'>
+            <div className='lists-wrapper'>
               {::this._renderLists()}
               {::this._renderAddNewList()}
             </div>

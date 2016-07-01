@@ -1,10 +1,10 @@
-import React, {PropTypes}       from 'react';
-import {DragSource, DropTarget} from 'react-dnd';
-import ItemTypes                from '../../constants/item_types';
-import Actions                  from '../../actions/current_board';
-import ListForm                 from './form';
-import CardForm                 from '../../components/cards/form';
-import Card                     from '../../components/cards/card';
+import React, { PropTypes } from 'react';
+import { DragSource, DropTarget } from 'react-dnd';
+import ItemTypes from '../../constants/item_types';
+import Actions from '../../actions/current_board';
+import ListForm from './form';
+import CardForm from '../../components/cards/form';
+import Card from '../../components/cards/card';
 
 const listSource = {
   beginDrag(props) {
@@ -55,15 +55,15 @@ const cardTarget = {
 
 @DragSource(ItemTypes.LIST, listSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
+  isDragging: monitor.isDragging(),
 }))
 
 @DropTarget(ItemTypes.LIST, listTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
+  connectDropTarget: connect.dropTarget(),
 }))
 
 @DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
-  connectCardDropTarget: connect.dropTarget()
+  connectCardDropTarget: connect.dropTarget(),
 }))
 
 export default class ListCard extends React.Component {
@@ -104,7 +104,7 @@ export default class ListCard extends React.Component {
     if (isAddingNewCard) return false;
 
     return (
-      <a className="add-new" href="#" onClick={::this._handleAddClick}>Add a new card...</a>
+      <a className='add-new' href='#' onClick={::this._handleAddClick}>Add a new card...</a>
     );
   }
 
@@ -175,10 +175,10 @@ export default class ListCard extends React.Component {
     return connectDragSource(
       connectDropTarget(
         connectCardDropTarget(
-          <div id={`list_${id}`} className="list" style={styles}>
-            <div className="inner">
+          <div id={`list_${id}`} className='list' style={styles}>
+            <div className='inner'>
               {::this._renderHeader()}
-              <div className="cards-wrapper">
+              <div className='cards-wrapper'>
                 {::this._renderCards()}
               </div>
               <footer>

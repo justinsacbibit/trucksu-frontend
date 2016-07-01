@@ -21,7 +21,7 @@ class UserLink extends React.Component {
       <a
         href={`/users/${this.props.userId}`}
         onClick={this._handleUserClick}
-        style={{color: '#0000FF', cursor: 'pointer', textDecoration: 'none'}}
+        style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none' }}
       >
         {this.props.username}
       </a>

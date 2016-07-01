@@ -1,14 +1,14 @@
-import { push }                           from 'react-router-redux';
-import Constants                          from '../constants';
-import { Socket }                         from '../phoenix';
-import { httpGet, httpPost, httpDelete }  from '../utils';
+import { push } from 'react-router-redux';
+import Constants from '../constants';
+import { Socket } from '../phoenix';
+import { httpGet, httpPost, httpDelete } from '../utils';
 
 export function setCurrentUser(dispatch, user) {
   dispatch({
     type: Constants.CURRENT_USER,
     currentUser: user,
   });
-};
+}
 
 const Actions = {
   signIn: (username, password) => {
@@ -47,10 +47,10 @@ const Actions = {
       });
 
       httpGet('/v1/current-user')
-      .then(function (data) {
+      .then(function(data) {
         setCurrentUser(dispatch, data);
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
         dispatch(push('/sign-in'));
       });
@@ -70,7 +70,7 @@ const Actions = {
         // TODO: ?
         dispatch({ type: Constants.BOARDS_FULL_RESET });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log(error);
       });
     };

@@ -27,7 +27,7 @@ class RegistrationsNew extends React.Component {
 
     const { form } = this.refs;
 
-    if(form.validate()) {
+    if (form.validate()) {
       const { dispatch } = this.props;
       const data = form.getValue();
 
@@ -60,7 +60,7 @@ class RegistrationsNew extends React.Component {
           <RaisedButton
             label='Sign Up'
             type='submit'
-            primary={true}
+            primary
             onClick={this._handleClickSubmit.bind(this)}
           />
         </form>
