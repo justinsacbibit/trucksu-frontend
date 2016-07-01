@@ -1,4 +1,5 @@
-# Trucksu Frontend [![CircleCI](https://circleci.com/gh/justinsacbibit/trucksu-frontend.svg?style=svg)](https://circleci.com/gh/justinsacbibit/trucksu-frontend)
+# Trucksu Frontend
+[![CircleCI](https://circleci.com/gh/justinsacbibit/trucksu-frontend.svg?style=svg)](https://circleci.com/gh/justinsacbibit/trucksu-frontend)
 
 trucksu-frontend is the frontend of the Trucksu website. The application consists of a React/Redux app.
 
