@@ -32,7 +32,7 @@ class VerifyEmailView extends React.Component {
       }).isRequired,
     }).isRequired,
     verifyEmail: PropTypes.shape({
-      succeeded: PropTypes.bool.isRequired,
+      succeeded: PropTypes.bool,
       loading: PropTypes.bool.isRequired,
       errors: PropTypes.array,
     }).isRequired,
@@ -52,7 +52,7 @@ class VerifyEmailView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loggedInUser.email_verified) {
+    if (nextProps.loggedInUser && nextProps.loggedInUser.email_verified) {
       this.props.dispatch(push('/'));
     }
   }

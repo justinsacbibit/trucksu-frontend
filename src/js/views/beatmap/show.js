@@ -43,6 +43,9 @@ const styles = {
     borderBottom: 'none', // ugly workaround
     marginBottom: 0,
   },
+  mapperText: {
+    marginBottom: 10,
+  },
 };
 
 class BeatmapShowView extends React.Component {
@@ -134,7 +137,9 @@ class BeatmapShowView extends React.Component {
               {beatmapset.artist} - {beatmapset.title}
             </h2>
 
-            Mapped by {beatmapset.creator}
+            <span style={styles.mapperText}>
+              Mapped by {beatmapset.creator}
+            </span>
 
             <div>
               {beatmapset.beatmaps.map((b, index) => {

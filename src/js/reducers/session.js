@@ -32,6 +32,15 @@ export default function reducer(state = initialState, action = {}) {
   case Constants.SESSIONS_ERROR:
     return { ...state, error: action.error };
 
+  case Constants.VERIFY_EMAIL_COMPLETED:
+    return {
+      ...state,
+      currentUser: {
+        ...state.currentUser,
+        ...action.payload.user,
+      },
+    };
+
   default:
     return state;
   }

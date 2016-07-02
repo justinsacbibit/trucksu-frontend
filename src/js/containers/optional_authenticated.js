@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Header from '../layouts/header';
-import SessionActions from '../actions/sessions';
 
+import SessionActions from '../actions/sessions';
+import Header from '../layouts/header';
+import UnverifiedEmail from '../components/UnverifiedEmail';
 
 const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: 30,
+    marginBottom: 30,
   },
   innerContainer: {
     width: 965,
@@ -43,6 +45,8 @@ class OptionalAuthenticatedContainer extends React.Component {
             {this.props.children}
           </div>
         </div>
+
+        <UnverifiedEmail />
       </div>
     );
   }

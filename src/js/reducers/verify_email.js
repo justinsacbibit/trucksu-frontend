@@ -5,7 +5,8 @@ const initialState = {
   loading: true,
   resend: {
     errors: [],
-    succeeded: false,
+    succeeded: null,
+    loading: false,
   },
 };
 
@@ -26,6 +27,7 @@ export default function reducer(state = initialState, action = {}) {
       resend: {
         ...state.resend,
         errors: [],
+        loading: true,
       },
     };
 
@@ -35,6 +37,7 @@ export default function reducer(state = initialState, action = {}) {
       resend: {
         ...state.resend,
         succeeded: true,
+        loading: false,
       },
     };
 
@@ -44,6 +47,7 @@ export default function reducer(state = initialState, action = {}) {
       resend: {
         ...state.resend,
         errors: action.errors,
+        loading: false,
       },
     };
 
