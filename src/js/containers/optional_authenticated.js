@@ -35,12 +35,6 @@ class OptionalAuthenticatedContainer extends React.Component {
     this.props.dispatch(SessionActions.signOut());
   }
 
-  _handleRequestClose() {
-    this.setState({
-
-    });
-  }
-
   render() {
     return (
       <div className='application-container'>
