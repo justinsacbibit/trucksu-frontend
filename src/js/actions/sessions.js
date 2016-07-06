@@ -1,6 +1,7 @@
 import { push } from 'react-router-redux';
 import Constants from '../constants';
-import { httpGet, httpPost, httpDelete } from '../utils';
+import { Socket } from '../phoenix';
+import { httpGet, httpPost, httpDelete, socketUrl } from '../utils';
 
 export function setCurrentUser(dispatch, user) {
   dispatch({
@@ -10,6 +11,47 @@ export function setCurrentUser(dispatch, user) {
 }
 
 const Actions = {
+  connectToSocket: () => (dispatch) => {
+    const socket = new Socket(socketUrl());
+
+    socket.connect();
+
+    const channel = socket.channel('users');
+
+    channel.on('user_online', (response) => {
+      dispatch({
+        type: Constants.BANCHO_USER_ONLINE,
+        user: response.user,
+      });
+    });
+
+    channel.on('user_offline', (response) => {
+      dispatch({
+        type: Constants.BANCHO_USER_OFFLINE,
+        user: response.user,
+      });
+    });
+
+    channel.on('user_change_action', (response) => {
+      dispatch({
+        type: Constants.BANCHO_USER_CHANGE_ACTION,
+        user: response.user,
+      });
+    });
+
+    channel.join()
+    .receive('ok', (response) => {
+      dispatch({
+        type: Constants.SOCKET_CONNECTED,
+        socket,
+        channel,
+        users: response.users,
+      });
+    })
+    .receive('error', ({reason}) => console.log('failed join', reason))
+    .receive('timeout', () => console.log('Networking issue'));
+  },
+
   signIn: (username, password) => {
     return dispatch => {
       const body = {

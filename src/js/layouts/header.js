@@ -100,9 +100,19 @@ class Header extends React.Component {
   }
 
   render() {
-    const tabsValue = this.props.location && this.props.location.pathname === '/'
-      ? 0
-      : -1;
+    let tabsValue = -1;
+    if (this.props.location) {
+      switch (this.props.location.pathname) {
+      case '/':
+        tabsValue = 0;
+        break;
+      case '/realtime':
+        tabsValue = 1;
+        break;
+      default:
+        break;
+      }
+    }
     return (
       <AppBar
         showMenuIconButton={false}
@@ -110,8 +120,15 @@ class Header extends React.Component {
         titleStyle={{ marginRight: 24, flex: 'none' }}>
         <Tabs
           onChange={(value) => {
-            if (value === 0) {
+            switch (value) {
+            case 0:
               this.props.dispatch(push('/'));
+              break;
+            case 1:
+              this.props.dispatch(push('/realtime'));
+              break;
+            default:
+              break;
             }
           }}
           style={{ flex: 'none', height: 64 }}
@@ -123,7 +140,15 @@ class Header extends React.Component {
           <Tab
             label='Leaderboard'
             style={{ height: 64, width: 140 }}
-            value={0} />
+            value={0}
+          />
+          {/*
+          <Tab
+            label='Realtime'
+            style={{ height: 64, width: 140 }}
+            value={1}
+          />
+          */}
         </Tabs>
         <div style={{ flex: 1 }} />
         {this._renderRight()}

@@ -2,8 +2,6 @@ import Constants from '../constants';
 
 const initialState = {
   currentUser: null,
-  socket: null,
-  channel: null,
   error: null,
   loading: false,
 };
@@ -14,8 +12,6 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       currentUser: action.currentUser,
-      socket: action.socket,
-      channel: action.channel,
       error: null,
       loading: false,
     };

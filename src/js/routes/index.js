@@ -9,6 +9,7 @@ import Actions from '../actions/sessions';
 import UserShowView from '../views/user/show';
 import BeatmapShowView from '../views/beatmap/show';
 import VerifyEmailView from '../views/verify_email/index.js';
+import RealtimeShowView from '../views/realtime/show';
 
 export default function configRoutes(store) {
   const _optionalAuthenticated = (nextState, replace, callback) => {
@@ -45,6 +46,7 @@ export default function configRoutes(store) {
         <Route path='/users/:userId' component={UserShowView} />
         <Route path='/beatmaps/:beatmapId' component={BeatmapShowView} />
         <Route path='/verify-email' component={VerifyEmailView} />
+        <Route path='/realtime' component={RealtimeShowView} />
 
         {/*
         <Route path='/boards/:id' component={BoardsShowView}>

@@ -7,13 +7,16 @@ const defaultHeaders = {
 };
 let _apiUrl;
 let _avatarUrl;
+let _socketUrl;
 if (process.env.NODE_ENV === 'production') {
   _apiUrl = 'https://api.trucksu.com';
   _avatarUrl = 'https://a.trucksu.com';
+  _socketUrl = 'wss://rt.trucksu.com';
 } else {
   const apiPort = process.env.API_PORT || 8080;
   _apiUrl = `http://localhost:${apiPort}/api`;
   _avatarUrl = `http://localhost:${apiPort}/a`;
+  _socketUrl = `ws://localhost:${apiPort}/socket`;
 }
 
 export function apiUrl(path) {
@@ -22,6 +25,10 @@ export function apiUrl(path) {
 
 export function avatarUrl(path) {
   return _avatarUrl + path;
+}
+
+export function socketUrl() {
+  return _socketUrl;
 }
 
 function buildHeaders() {
