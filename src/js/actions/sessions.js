@@ -41,11 +41,14 @@ const Actions = {
 
     channel.join()
     .receive('ok', (response) => {
-      dispatch({
-        type: Constants.SOCKET_CONNECTED,
-        socket,
-        channel,
-        users: response.users,
+      channel.push('get:users')
+      .receive('ok', response => {
+        dispatch({
+          type: Constants.SOCKET_CONNECTED,
+          socket,
+          channel,
+          users: response.users,
+        });
       });
     })
     .receive('error', ({reason}) => console.log('failed join', reason))
