@@ -61,7 +61,7 @@ class RealtimeShowView extends React.Component {
 
             return (
               <div style={{display: 'flex', flexDirection: 'row'}} key={user.id}>
-                <div style={{width: 100}}>
+                <div style={{width: 400}}>
                   <UserLink
                     userId={user.id}
                     username={user.username}
