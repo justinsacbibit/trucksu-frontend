@@ -17,19 +17,21 @@ export function getModsArray(curMods) {
     // Where is SD?
   ];
 
+  if (curMods & 512) {
+    curMods -= 64;
+  }
+  if (curMods & 16384) {
+    curMods -= 32;
+  }
+
   const mods = [];
   for (let i = modMap.length - 1; i >= 0; i--) {
     const arr = modMap[i];
     const mod = arr[0];
     const val = arr[1];
-    if (val > curMods) {
-      continue;
+    if (curMods & val) {
+      mods.push(mod);
     }
-    curMods -= val;
-    if (val === 512) {
-      curMods -= 64;
-    }
-    mods.push(mod);
   }
 
   mods.reverse();
