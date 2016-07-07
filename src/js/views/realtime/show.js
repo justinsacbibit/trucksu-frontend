@@ -38,7 +38,7 @@ class RealtimeShowView extends React.Component {
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
         <div style={{ width: 965 }}>
           <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Online Users</h2>
-          {_.values(this.props.users).map((user) => {
+          {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user) => {
             let action = 'unknown';
             switch (user.action.action_id) {
             case 0:
