@@ -15,6 +15,7 @@ import {
 } from '../../utils';
 import {
   getModsArray,
+  getGameModeText,
 } from '../../utils/osu';
 
 import UserLink from '../../components/UserLink';
@@ -45,6 +46,7 @@ class RealtimeShowView extends React.Component {
             let action = 'unknown';
             let modsText = getModsArray(user.action.action_mods).join(',');
             modsText = modsText ? ` +${modsText}` : '';
+            modsText += modsText ? ` (${getGameModeText(user.action.game_mode)})` : '';
             switch (user.action.action_id) {
             case 0:
               action = 'Active';
@@ -55,11 +57,21 @@ class RealtimeShowView extends React.Component {
             case 2:
               action = `Playing ${user.action.action_text}${modsText}`;
               break;
+            case 4:
+              action = `Modding ${user.action.action_text}`;
+              break;
             case 5:
               action = `Multiplayer ${user.action.action_text}${modsText}`;
               break;
             case 6:
               action = `Watching ${user.action.action_text}${modsText}`;
+              break;
+            case 12:
+              action = `Multiplaying ${user.action.action_text}${modsText}`;
+              break;
+            case 13:
+              action = `osu!direct ${user.action.action_text}`;
+              break;
             default:
               break;
             }

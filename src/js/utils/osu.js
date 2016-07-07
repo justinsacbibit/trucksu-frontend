@@ -37,3 +37,18 @@ export function getModsArray(curMods) {
   mods.reverse();
   return mods;
 }
+
+export function getGameModeText(gameMode) {
+  switch (gameMode) {
+  case 0:
+    return 'osu! Standard';
+  case 1:
+    return 'Taiko';
+  case 2:
+    return 'CatchTheBeat';
+  case 3:
+    return 'osu!Mania';
+  default:
+    throw new Error(`Unsupported game mode ${gameMode}`);
+  }
+}
