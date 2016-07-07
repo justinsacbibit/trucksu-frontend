@@ -59,8 +59,8 @@ class RealtimeShowView extends React.Component {
             const action = getActionText(user.action);
 
             return (
-              <div style={{display: 'flex', flexDirection: 'row'}} key={user.id}>
-                <div style={{width: 400}}>
+              <div style={{ display: 'flex', flexDirection: 'row' }} key={user.id}>
+                <div style={{ width: 400 }}>
                   <UserLink
                     userId={user.id}
                     username={user.username}

@@ -38,11 +38,12 @@ const Actions = {
         });
       });
     })
-    .receive('error', ({reason}) => console.log('failed join', reason))
+    .receive('error', ({ reason }) => console.log('failed join', reason))
     .receive('timeout', () => console.log('Networking issue'));
   },
-  leaveUsersChannel: () => (dispatch) => {
-    channel.leave();
+  leaveUsersChannel: () => (dispatch, getState) => {
+    const { usersChannel } = getState().session;
+    usersChannel.leave();
     dispatch({
       type: Constants.USERS_CHANNEL_DISCONNECTED,
       channel: null,

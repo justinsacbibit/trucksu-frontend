@@ -50,7 +50,7 @@ const Actions = {
         user: response.user,
       });
     })
-    .receive('error', ({reason}) => console.log('failed join', reason))
+    .receive('error', ({ reason }) => console.log('failed join', reason))
     .receive('timeout', () => console.log('Networking issue'));
   },
   leaveUserChannel: (userId) => (dispatch, getState) => {
