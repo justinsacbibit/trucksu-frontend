@@ -91,7 +91,7 @@ class UserShowView extends React.Component {
             if (rank === 'X') {
               rank = 'SS';
             } else if (rank === 'XH') {
-              rank = 'SH';
+              rank = 'SSH';
             }
           }
           const weight = Math.pow(0.95, index);

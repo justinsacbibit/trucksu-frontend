@@ -13,6 +13,9 @@ import {
   setDocumentTitle,
   avatarUrl,
 } from '../../utils';
+import {
+  getModsArray,
+} from '../../utils/osu';
 
 import UserLink from '../../components/UserLink';
 import Flag from '../../components/Flag';
@@ -40,6 +43,8 @@ class RealtimeShowView extends React.Component {
           <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Online Users</h2>
           {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user) => {
             let action = 'unknown';
+            let modsText = getModsArray(user.action.action_mods).join(',');
+            modsText = modsText ? ` +${modsText}` : '';
             switch (user.action.action_id) {
             case 0:
               action = 'Active';
@@ -48,13 +53,13 @@ class RealtimeShowView extends React.Component {
               action = 'AFK';
               break;
             case 2:
-              action = `Playing ${user.action.action_text}`;
+              action = `Playing ${user.action.action_text}${modsText}`;
               break;
             case 5:
-              action = `Multiplayer ${user.action.action_text}`;
+              action = `Multiplayer ${user.action.action_text}${modsText}`;
               break;
             case 6:
-              action = `Watching ${user.action.action_text}`;
+              action = `Watching ${user.action.action_text}${modsText}`;
             default:
               break;
             }
