@@ -52,3 +52,30 @@ export function getGameModeText(gameMode) {
     throw new Error(`Unsupported game mode ${gameMode}`);
   }
 }
+
+export function getActionText(action) {
+  let modsText = getModsArray(action.action_mods).join(',');
+  modsText = modsText ? ` +${modsText}` : '';
+  modsText += modsText ? ` (${getGameModeText(action.game_mode)})` : '';
+  switch (action.action_id) {
+  case 0:
+    return 'Active';
+  case 1:
+    return 'AFK';
+  case 2:
+    return `Playing ${action.action_text}${modsText}`;
+  case 4:
+    return `Modding ${action.action_text}`;
+  case 5:
+    return `Multiplayer ${action.action_text}${modsText}`;
+  case 6:
+    return `Watching ${action.action_text}${modsText}`;
+  case 12:
+    return `Multiplaying ${action.action_text}${modsText}`;
+  case 13:
+    return `osu!direct ${action.action_text}`;
+  default:
+    break;
+  }
+  return 'unknown';
+}

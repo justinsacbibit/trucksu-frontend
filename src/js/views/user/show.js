@@ -17,7 +17,10 @@ import {
   httpPostFile,
 } from '../../utils';
 
-import { getModsArray } from '../../utils/osu';
+import {
+  getModsArray,
+  getActionText,
+} from '../../utils/osu';
 
 const styles = {
   h3: {
@@ -42,15 +45,33 @@ class UserShowView extends React.Component {
     params: PropTypes.shape({
       userId: PropTypes.string.isRequired,
     }).isRequired,
+
+    socket: PropTypes.any,
+
+    banchoUser: PropTypes.shape({
+      action: PropTypes.object.isRequired,
+    }),
   };
 
   componentDidMount() {
     this.props.dispatch(Actions.fetchUser(this.props.params.userId));
+
+    if (this.props.socket) {
+      this.props.dispatch(Actions.joinUserChannel(this.props.socket, this.props.params.userId));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.userId !== this.props.params.userId) {
+      if (this.props.socket) {
+        this.props.dispatch(Actions.joinUserChannel(nextProps.socket, nextProps.params.userId));
+        this.props.dispatch(Actions.leaveUserChannel(this.props.params.userId));
+      }
       this.props.dispatch(Actions.fetchUser(nextProps.params.userId));
+    } else {
+      if (nextProps.socket && !this.props.socket) {
+        this.props.dispatch(Actions.joinUserChannel(nextProps.socket, nextProps.params.userId));
+      }
     }
   }
 
@@ -59,6 +80,10 @@ class UserShowView extends React.Component {
     if (user && !prevProps.currentUser.user) {
       setDocumentTitle(`${user.username}'s profile`);
     }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(Actions.leaveUserChannel(this.props.params.userId));
   }
 
   _handleBeatmapClick(beatmapId, e) {
@@ -180,15 +205,65 @@ class UserShowView extends React.Component {
     return avatar;
   }
 
+  _renderOnlineBanchoUser() {
+    const { banchoUser } = this.props;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div>
+          In-game:&nbsp;
+        </div>
+        <div>
+          {getActionText(banchoUser.action)}
+        </div>
+      </div>
+    );
+  }
+
+  _renderOfflineBanchoUser() {
+    return (
+      <div>
+        Offline
+      </div>
+    );
+  }
+
+  _renderHeader(user, stats) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #eee', width: '100%', paddingBottom: 12, marginBottom: 20 }}>
+      <div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginBottom: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
+          {this._renderAvatar()}
+          &nbsp;
+          <div>
+            <h3 style={{ ...styles.h3, fontWeight: 500, fontSize: '30px' }}>
+              {user.username}
+            </h3>
+          </div>
+        </div>
+        <div style={{ flex: 1 }}></div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
+          <h3 style={{ ...styles.h3, marginBottom: 0 }}>#{stats.rank} <span style={{ fontWeight: 200 }}>in osu! Standard</span></h3>
+          <h3 style={{ ...styles.h3, marginTop: 0, marginBottom: 0 }}><strong>{Math.round(stats.pp)}pp</strong></h3>
+        </div>
+      </div>
+      {this.props.banchoUser ? this._renderOnlineBanchoUser() : this._renderOfflineBanchoUser()}
+      </div>
+    );
+  }
+
+  _renderLoading() {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', paddingTop: 30 }}>
+        <CircularProgress size={2} />
+      </div>
+    );
+  }
+
   render() {
     const { fetching, user } = this.props.currentUser;
 
     if (fetching) {
-      return (
-        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', paddingTop: 30 }}>
-          <CircularProgress size={2} />
-        </div>
-      );
+      return this._renderLoading();
     }
 
     const [stats] = user.stats;
@@ -196,18 +271,7 @@ class UserShowView extends React.Component {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', marginTop: 20 }}>
         <div style={{ width: 965 }}>
-          <div style={{ display: 'flex', flexDirection: 'row', borderBottom: '1px solid #eee', width: '100%', marginBottom: 20 }}>
-            <h3 style={{ ...styles.h3, fontWeight: 500, display: 'flex', fontSize: '30px', margin: 0, alignItems: 'center', marginBottom: 20 }}>
-              {this._renderAvatar()}
-              &nbsp;
-              {user.username}
-            </h3>
-            <div style={{ flex: 1 }}></div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
-              <h3 style={{ ...styles.h3, marginBottom: 0 }}>#{stats.rank} <span style={{ fontWeight: 200 }}>in osu! Standard</span></h3>
-              <h3 style={{ ...styles.h3, marginTop: 0, marginBottom: 0 }}><strong>{Math.round(stats.pp)}pp</strong></h3>
-            </div>
-          </div>
+          {this._renderHeader(user, stats)}
           {this._renderScoresTable(stats.scores, true)}
           {this._renderFirstPlaceScoresTable(stats.first_place_scores)}
         </div>
@@ -216,9 +280,11 @@ class UserShowView extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, props) => ({
   loggedInUser: state.session.currentUser,
   currentUser: state.currentUser,
+  socket: state.session.socket,
+  banchoUser: state.bancho.users[Number(props.params.userId)],
 });
 
 export default connect(mapStateToProps)(UserShowView);

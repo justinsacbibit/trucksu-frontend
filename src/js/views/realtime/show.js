@@ -7,7 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import Divider from 'material-ui/Divider';
-import SessionActions from '../../actions/sessions';
+import Actions from '../../actions/realtime';
 
 import {
   setDocumentTitle,
@@ -15,7 +15,7 @@ import {
 } from '../../utils';
 import {
   getModsArray,
-  getGameModeText,
+  getActionText,
 } from '../../utils/osu';
 
 import UserLink from '../../components/UserLink';
@@ -29,12 +29,25 @@ class RealtimeShowView extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    socket: PropTypes.any,
   }
 
   componentDidMount() {
     setDocumentTitle('Realtime');
 
-    this.props.dispatch(SessionActions.connectToSocket());
+    if (this.props.socket) {
+      this.props.dispatch(Actions.joinUsersChannel(this.props.socket));
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.socket && !this.props.socket) {
+      this.props.dispatch(Actions.joinUsersChannel(nextProps.socket));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(Actions.leaveUsersChannel());
   }
 
   render() {
@@ -43,38 +56,7 @@ class RealtimeShowView extends React.Component {
         <div style={{ width: 965 }}>
           <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Online Users</h2>
           {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user) => {
-            let action = 'unknown';
-            let modsText = getModsArray(user.action.action_mods).join(',');
-            modsText = modsText ? ` +${modsText}` : '';
-            modsText += modsText ? ` (${getGameModeText(user.action.game_mode)})` : '';
-            switch (user.action.action_id) {
-            case 0:
-              action = 'Active';
-              break;
-            case 1:
-              action = 'AFK';
-              break;
-            case 2:
-              action = `Playing ${user.action.action_text}${modsText}`;
-              break;
-            case 4:
-              action = `Modding ${user.action.action_text}`;
-              break;
-            case 5:
-              action = `Multiplayer ${user.action.action_text}${modsText}`;
-              break;
-            case 6:
-              action = `Watching ${user.action.action_text}${modsText}`;
-              break;
-            case 12:
-              action = `Multiplaying ${user.action.action_text}${modsText}`;
-              break;
-            case 13:
-              action = `osu!direct ${user.action.action_text}`;
-              break;
-            default:
-              break;
-            }
+            const action = getActionText(user.action);
 
             return (
               <div style={{display: 'flex', flexDirection: 'row'}} key={user.id}>
@@ -99,6 +81,7 @@ class RealtimeShowView extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.bancho.users,
+  socket: state.session.socket,
 });
 
 export default connect(mapStateToProps)(RealtimeShowView);

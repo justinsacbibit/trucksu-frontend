@@ -2,22 +2,8 @@ import Constants from '../constants';
 import { httpGet } from '../utils';
 
 const Actions = {
-  fetchUser: (userId) => {
-    return dispatch => {
-      dispatch({ type: Constants.USER_FETCHING });
-
-      httpGet(`/v1/users/${userId}`)
-      .then((data) => {
-        dispatch({
-          type: Constants.USER_RECEIVED,
-          user: data,
-        });
-      });
-    };
-  },
-  joinUserChannel: (socket, userId) => (dispatch) => {
-    userId = Number(userId);
-    const channel = socket.channel(`users:${userId}`);
+  joinUsersChannel: (socket) => (dispatch) => {
+    const channel = socket.channel('users');
 
     channel.on('user_online', (response) => {
       dispatch({
@@ -42,29 +28,27 @@ const Actions = {
 
     channel.join()
     .receive('ok', (response) => {
-      dispatch({
-        type: Constants.USER_CHANNEL_CONNECTED,
-        socket,
-        channel,
-        userId,
-        user: response.user,
+      channel.push('get:users')
+      .receive('ok', response => {
+        dispatch({
+          type: Constants.USERS_CHANNEL_CONNECTED,
+          socket,
+          channel,
+          users: response.users,
+        });
       });
     })
     .receive('error', ({reason}) => console.log('failed join', reason))
     .receive('timeout', () => console.log('Networking issue'));
   },
-  leaveUserChannel: (userId) => (dispatch, getState) => {
-    userId = Number(userId);
-    const state = getState();
-    const channel = state.bancho.channels[userId];
+  leaveUsersChannel: () => (dispatch) => {
     channel.leave();
     dispatch({
-      type: Constants.USER_CHANNEL_DISCONNECTED,
-      user: null,
-      userId,
+      type: Constants.USERS_CHANNEL_DISCONNECTED,
       channel: null,
     });
   },
 };
 
 export default Actions;
+

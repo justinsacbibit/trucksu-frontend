@@ -3,21 +3,31 @@ import _ from 'lodash';
 
 const initialState = {
   users: {},
-  socket: null,
-  channel: null,
+  channels: {},
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-  case Constants.SOCKET_CONNECTED: {
+  case Constants.USER_CHANNEL_DISCONNECTED:
+  case Constants.USER_CHANNEL_CONNECTED: {
+    const channels = { ...state.channels };
+    channels[action.userId] = action.channel;
+    const users = { ...state.users };
+    users[action.userId] = action.user;
+    return {
+      ...state,
+      users,
+      channels,
+    };
+  }
+
+  case Constants.USERS_CHANNEL_CONNECTED: {
     const users = { ...state.users };
     action.users.forEach((user) => {
       users[user.id] = user;
     });
     return {
       ...state,
-      socket: action.socket,
-      channel: action.channel,
       users,
     };
   }

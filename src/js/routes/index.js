@@ -21,6 +21,8 @@ export default function configRoutes(store) {
       dispatch(Actions.currentUser());
     }
 
+    dispatch(Actions.connectToSocket());
+
     callback();
   };
   const _ensureNotAuthenticated = (nextState, replace, callback) => {
