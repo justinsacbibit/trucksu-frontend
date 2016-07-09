@@ -4,6 +4,7 @@ import _ from 'lodash';
 const initialState = {
   users: {},
   channels: {},
+  matches: {},
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,6 +30,13 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       users,
+    };
+  }
+
+  case Constants.MATCHES_CHANNEL_CONNECTED: {
+    return {
+      ...state,
+      matches: action.matches,
     };
   }
 

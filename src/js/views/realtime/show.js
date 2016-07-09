@@ -36,13 +36,13 @@ class RealtimeShowView extends React.Component {
     setDocumentTitle('Realtime');
 
     if (this.props.socket) {
-      this.props.dispatch(Actions.joinUsersChannel(this.props.socket));
+      this._joinChannels(this.props.socket);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.socket && !this.props.socket) {
-      this.props.dispatch(Actions.joinUsersChannel(nextProps.socket));
+      this._joinChannels(nextProps.socket);
     }
   }
 
@@ -50,10 +50,27 @@ class RealtimeShowView extends React.Component {
     this.props.dispatch(Actions.leaveUsersChannel());
   }
 
+  _joinChannels(socket) {
+    this.props.dispatch(Actions.joinUsersChannel(socket));
+    this.props.dispatch(Actions.joinMatchesChannel(socket));
+  }
+
   render() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
         <div style={{ width: 965 }}>
+          <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Multiplayer Matches</h2>
+          {_.values(this.props.matches).map((match) => {
+            return (
+              <div style={{ display: 'flex', flexDirection: 'row' }} key={match.match_id}>
+                <div style={{ width: 400 }}>
+                  {match.match_name}
+                </div>
+                <div>
+                </div>
+              </div>
+            );
+          })}
           <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Online Users</h2>
           {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user) => {
             const action = getActionText(user.action);
@@ -81,6 +98,7 @@ class RealtimeShowView extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.bancho.users,
+  matches: state.bancho.matches,
   socket: state.session.socket,
 });
 
