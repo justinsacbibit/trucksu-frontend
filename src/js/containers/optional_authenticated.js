@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import Snackbar from 'material-ui/Snackbar';
+
 import SessionActions from '../actions/sessions';
+
 import Header from '../layouts/header';
 import UnverifiedEmail from '../components/UnverifiedEmail';
 
@@ -22,6 +26,8 @@ class OptionalAuthenticatedContainer extends React.Component {
     children: PropTypes.node,
     location: PropTypes.any,
     dispatch: PropTypes.func.isRequired,
+    showLoggedOutSnackbar: PropTypes.bool.isRequired,
+    closeLoggedOutSnackbar: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -47,6 +53,12 @@ class OptionalAuthenticatedContainer extends React.Component {
         </div>
 
         <UnverifiedEmail />
+        <Snackbar
+          open={this.props.showLoggedOutSnackbar}
+          message='Signed out'
+          autoHideDuration={4000}
+          onRequestClose={this.props.closeLoggedOutSnackbar}
+        />
       </div>
     );
   }
@@ -55,6 +67,13 @@ class OptionalAuthenticatedContainer extends React.Component {
 const mapStateToProps = (state, props) => ({
   currentUser: state.session.currentUser,
   location: props.location,
+  showLoggedOutSnackbar: state.session.showLoggedOutSnackbar,
 });
 
-export default connect(mapStateToProps)(OptionalAuthenticatedContainer);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    closeLoggedOutSnackbar: SessionActions.closeLoggedOutSnackbar,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OptionalAuthenticatedContainer);

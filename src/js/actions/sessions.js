@@ -75,15 +75,16 @@ const Actions = {
         dispatch({ type: Constants.USER_SIGNED_OUT });
 
         dispatch(push('/'));
-
-        // TODO: ?
-        dispatch({ type: Constants.BOARDS_FULL_RESET });
       })
       .catch((error) => {
         console.log(error);
       });
     };
   },
+
+  closeLoggedOutSnackbar: () => ({
+    type: Constants.CLOSED_LOGGED_OUT_SNACKBAR,
+  }),
 };
 
 export default Actions;

@@ -7,6 +7,9 @@ const initialState = {
   socket: null,
   usersChannel: null,
   matchesChannel: null,
+
+  // view
+  showLoggedOutSnackbar: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -46,7 +49,16 @@ export default function reducer(state = initialState, action = {}) {
     };
 
   case Constants.USER_SIGNED_OUT:
-    return initialState;
+    return {
+      ...initialState,
+      showLoggedOutSnackbar: true,
+    };
+
+  case Constants.CLOSED_LOGGED_OUT_SNACKBAR:
+    return {
+      ...state,
+      showLoggedOutSnackbar: false,
+    };
 
   case Constants.SESSIONS_ERROR:
     return { ...state, error: action.error };
