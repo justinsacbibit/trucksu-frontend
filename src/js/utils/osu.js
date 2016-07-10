@@ -64,6 +64,8 @@ export function getActionText(action) {
     return 'AFK';
   case 2:
     return `Playing ${action.action_text}${modsText}`;
+  case 3:
+    return `Editing ${action.action_text}`;
   case 4:
     return `Modding ${action.action_text}`;
   case 5:

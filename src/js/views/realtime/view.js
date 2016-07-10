@@ -135,7 +135,12 @@ export default class RealtimeView extends React.Component {
 
             return (
               <div style={containerStyle} key={user.id}>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                  <Avatar
+                    size={36}
+                    src={avatarUrl(`/${user.id}`)}
+                    style={{ marginRight: 4 }}
+                  />
                   <UserLink
                     userId={user.id}
                     username={user.username}
