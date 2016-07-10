@@ -9,7 +9,7 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
   case Constants.USER_FETCHING:
-    return { ...state, fetching: true };
+    return { ...initialState, fetching: true };
 
   case Constants.USER_RECEIVED:
     return { ...state, user: action.user, fetching: false };
