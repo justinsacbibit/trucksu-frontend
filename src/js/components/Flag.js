@@ -15,7 +15,7 @@ export default class Flag extends React.Component {
     const { country } = this.props;
     return (
       <img
-        src={require(`../../../img/flags/flags-iso/flat/32/${country}.png`)}
+        src={require(`../../../img/flags/flags-iso/flat/32/${country || 'BL'}.png`)}
         title={country}
         style={this.props.style}
       />
