@@ -121,7 +121,7 @@ export default class RealtimeView extends React.Component {
             );
           })}
           <h2 style={styles.sectionHeader}>Online Users</h2>
-          {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user, index) => {
+          {_.sortBy(_.values(this.props.users).filter(user => user), (user) => user.rank).map((user, index) => {
             const action = getActionText(user.action);
 
             const containerStyle = {
