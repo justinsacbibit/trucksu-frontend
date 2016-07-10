@@ -7,28 +7,20 @@ import Avatar from 'material-ui/Avatar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import Divider from 'material-ui/Divider';
+
 import Actions from '../../actions/realtime';
+import RealtimeView from './view';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 import {
   setDocumentTitle,
-  avatarUrl,
 } from '../../utils';
-import {
-  getModsArray,
-  getActionText,
-} from '../../utils/osu';
-
-import UserLink from '../../components/UserLink';
-import Flag from '../../components/Flag';
-
-
-const styles = {
-};
 
 class RealtimeShowView extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    matches: PropTypes.object.isRequired,
     socket: PropTypes.any,
   }
 
@@ -56,42 +48,15 @@ class RealtimeShowView extends React.Component {
   }
 
   render() {
+    // TODO: Error state
+    if (!this.props.usersChannel || !this.props.matchesChannel) {
+      return <LoadingSpinner />;
+    }
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row' }}>
-        <div style={{ width: 965 }}>
-          <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Multiplayer Matches</h2>
-          {_.values(this.props.matches).map((match) => {
-            return (
-              <div style={{ display: 'flex', flexDirection: 'row' }} key={match.match_id}>
-                <div style={{ width: 400 }}>
-                  {match.match_name}
-                </div>
-                <div>
-                </div>
-              </div>
-            );
-          })}
-          <h2 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>Online Users</h2>
-          {_.sortBy(_.values(this.props.users), (user) => user.rank).map((user) => {
-            const action = getActionText(user.action);
-
-            return (
-              <div style={{ display: 'flex', flexDirection: 'row' }} key={user.id}>
-                <div style={{ width: 400 }}>
-                  <UserLink
-                    userId={user.id}
-                    username={user.username}
-                  />
-                  &nbsp;(#{user.rank})
-                </div>
-                <div>
-                  Current status: {action}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      <RealtimeView
+        users={this.props.users}
+        matches={this.props.matches}
+      />
     );
   }
 }
@@ -100,7 +65,8 @@ const mapStateToProps = (state) => ({
   users: state.bancho.users,
   matches: state.bancho.matches,
   socket: state.session.socket,
+  usersChannel: state.session.usersChannel,
+  matchesChannel: state.session.matchesChannel,
 });
 
 export default connect(mapStateToProps)(RealtimeShowView);
-

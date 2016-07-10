@@ -7,10 +7,14 @@ class UserLink extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     userId: PropTypes.any.isRequired,
-    username: PropTypes.string.isRequired,
+    username: PropTypes.node,
+    children: PropTypes.node,
   }
 
   _handleUserClick = (e) => {
+    if (e.button == 1) {
+      return;
+    }
     e.preventDefault();
     this.props.dispatch(push(`/users/${this.props.userId}`));
   }
@@ -22,7 +26,7 @@ class UserLink extends React.Component {
         onClick={this._handleUserClick}
         style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none' }}
       >
-        {this.props.username}
+        {this.props.username || this.props.children}
       </a>
     );
   }

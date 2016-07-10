@@ -43,6 +43,9 @@ const Actions = {
   },
   leaveUsersChannel: () => (dispatch, getState) => {
     const { usersChannel } = getState().session;
+    if (!usersChannel) {
+      return;
+    }
     usersChannel.leave();
     dispatch({
       type: Constants.USERS_CHANNEL_DISCONNECTED,
@@ -69,7 +72,7 @@ const Actions = {
     channel.on('match_destroy', (response) => {
       dispatch({
         type: Constants.BANCHO_MATCH_DESTROY,
-        matchId: response.match.id,
+        match: response.match,
       });
     });
 
@@ -86,6 +89,9 @@ const Actions = {
   },
   leaveMatchesChannel: () => (dispatch, getState) => {
     const { matchesChannel } = getState().session;
+    if (!matchesChannel) {
+      return;
+    }
     matchesChannel.leave();
     dispatch({
       type: Constants.MATCHES_CHANNEL_DISCONNECTED,
@@ -95,4 +101,3 @@ const Actions = {
 };
 
 export default Actions;
-

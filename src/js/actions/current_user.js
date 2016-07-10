@@ -57,6 +57,9 @@ const Actions = {
     userId = Number(userId);
     const state = getState();
     const channel = state.bancho.channels[userId];
+    if (!channel) {
+      return;
+    }
     channel.leave();
     dispatch({
       type: Constants.USER_CHANNEL_DISCONNECTED,
