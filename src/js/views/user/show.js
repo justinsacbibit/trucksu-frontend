@@ -20,7 +20,11 @@ import {
 import {
   getModsArray,
   getActionText,
+  getGameModeText,
 } from '../../utils/osu';
+
+import Flag from '../../components/Flag';
+
 
 const styles = {
   h3: {
@@ -37,6 +41,7 @@ class UserShowView extends React.Component {
       fetching: PropTypes.bool,
       user: PropTypes.shape({
         id: PropTypes.any,
+        country: PropTypes.string,
       }),
     }).isRequired,
     loggedInUser: PropTypes.shape({
@@ -227,26 +232,59 @@ class UserShowView extends React.Component {
     );
   }
 
-  _renderHeader(user, stats) {
+  _renderStatRow(label, value) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', borderBottom: '1px solid #eee', width: '100%', paddingBottom: 12, marginBottom: 20 }}>
-      <div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginBottom: 12 }}>
-        <div style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
-          {this._renderAvatar()}
-          &nbsp;
-          <div>
-            <h3 style={{ ...styles.h3, fontWeight: 500, fontSize: '30px' }}>
-              {user.username}
-            </h3>
+      <div style={{ display: 'flex', flexDirection: 'row', width: 300 }}>
+        {label}:<div style={{ flex: 1 }}/><strong>{value}</strong>
+      </div>
+    );
+  }
+
+  _renderHeader(user, stats) {
+    const styles = {
+      container: { display: 'flex', flexDirection: 'column', borderBottom: '1px solid #eee', width: '100%', paddingBottom: 12, marginBottom: 20 },
+      upperContainer: { display: 'flex', flexDirection: 'row', width: '100%', marginBottom: 12 },
+    };
+    return (
+      <div style={styles.container}>
+        <div style={styles.upperContainer}>
+          <div style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
+            {this._renderAvatar()}
+            <div>
+              <div style={{ alignItems: 'center', marginLeft: 6 }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <h3 style={{ ...styles.h3, margin: 0, fontWeight: 500, fontSize: '30px' }}>
+                    {user.username}
+                  </h3>
+                  <div>
+                    <Flag country={user.country} style={{ marginLeft: 6 }} />
+                  </div>
+                </div>
+                {user.groups.filter(({ id }) => id !== 1).map(group => {
+                  return (
+                    <div key={group.id}>
+                      {group.name}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div style={{ flex: 1 }}></div>
+          <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
+            <h3 style={{ ...styles.h3, marginBottom: 0 }}>#{stats.rank} <span style={{ fontWeight: 200 }}>in {getGameModeText(stats.game_mode)}</span></h3>
+            <h3 style={{ ...styles.h3, marginTop: 0, marginBottom: 0 }}><strong>{Math.round(stats.pp).toLocaleString()}pp</strong></h3>
+
+            <div style={{ marginTop: 20 }}>
+              {this._renderStatRow('Accuracy', `${(stats.accuracy * 100).toFixed(2)}%`)}
+              {this._renderStatRow('Playcount', stats.playcount.toLocaleString())}
+              {this._renderStatRow('Ranked Score', stats.ranked_score.toLocaleString())}
+              {this._renderStatRow('Total Hits', stats.total_hits.toLocaleString())}
+              {this._renderStatRow('Replays watched by others', stats.replays_watched.toLocaleString())}
+            </div>
           </div>
         </div>
-        <div style={{ flex: 1 }}></div>
-        <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
-          <h3 style={{ ...styles.h3, marginBottom: 0 }}>#{stats.rank} <span style={{ fontWeight: 200 }}>in osu! Standard</span></h3>
-          <h3 style={{ ...styles.h3, marginTop: 0, marginBottom: 0 }}><strong>{Math.round(stats.pp)}pp</strong></h3>
-        </div>
-      </div>
-      {this.props.banchoUser ? this._renderOnlineBanchoUser() : this._renderOfflineBanchoUser()}
+        {this.props.banchoUser ? this._renderOnlineBanchoUser() : this._renderOfflineBanchoUser()}
       </div>
     );
   }
