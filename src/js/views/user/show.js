@@ -234,8 +234,8 @@ class UserShowView extends React.Component {
 
   _renderStatRow(label, value) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {label}:&nbsp;<div style={{ flex: 1 }}/><strong>{value}</strong>
+      <div style={{ display: 'flex', flexDirection: 'row', width: 300 }}>
+        {label}:<div style={{ flex: 1 }}/><strong>{value}</strong>
       </div>
     );
   }
@@ -250,11 +250,24 @@ class UserShowView extends React.Component {
         <div style={styles.upperContainer}>
           <div style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
             {this._renderAvatar()}
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginLeft: 6 }}>
-              <h3 style={{ ...styles.h3, fontWeight: 500, fontSize: '30px' }}>
-                {user.username}
-              </h3>
-              <Flag country={user.country} style={{ marginLeft: 6 }} />
+            <div>
+              <div style={{ alignItems: 'center', marginLeft: 6 }}>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <h3 style={{ ...styles.h3, margin: 0, fontWeight: 500, fontSize: '30px' }}>
+                    {user.username}
+                  </h3>
+                  <div>
+                    <Flag country={user.country} style={{ marginLeft: 6 }} />
+                  </div>
+                </div>
+                {user.groups.filter(({ id }) => id !== 1).map(group => {
+                  return (
+                    <div key={group.id}>
+                      {group.name}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div style={{ flex: 1 }}></div>
