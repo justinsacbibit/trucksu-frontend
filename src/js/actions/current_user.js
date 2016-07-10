@@ -12,6 +12,17 @@ const Actions = {
           type: Constants.USER_RECEIVED,
           user: data,
         });
+      })
+      .catch((error) => {
+        let errorMessage = 'Something went wrong..';
+        if (error.response.status === 404) {
+          errorMessage = 'User not found!';
+        }
+        dispatch({
+          type: Constants.USER_ERROR,
+          error,
+          errorMessage,
+        });
       });
     };
   },

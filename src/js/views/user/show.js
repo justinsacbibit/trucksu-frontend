@@ -43,6 +43,7 @@ class UserShowView extends React.Component {
         id: PropTypes.any,
         country: PropTypes.string,
       }),
+      errorMessage: PropTypes.string,
     }).isRequired,
     loggedInUser: PropTypes.shape({
       id: PropTypes.any,
@@ -297,11 +298,21 @@ class UserShowView extends React.Component {
     );
   }
 
+  _renderError() {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', paddingTop: 30 }}>
+        {this.props.currentUser.errorMessage}
+      </div>
+    );
+  }
+
   render() {
-    const { fetching, user } = this.props.currentUser;
+    const { fetching, user, errorMessage } = this.props.currentUser;
 
     if (fetching) {
       return this._renderLoading();
+    } else if (errorMessage) {
+      return this._renderError();
     }
 
     const [stats] = user.stats;

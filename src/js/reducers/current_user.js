@@ -3,6 +3,7 @@ import Constants from '../constants';
 const initialState = {
   user: null,
   fetching: true,
+  errorMessage: '',
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -14,11 +15,13 @@ export default function reducer(state = initialState, action = {}) {
     return { ...state, user: action.user, fetching: false };
 
   case Constants.USER_ERROR:
-      // TODO
-    return state;
+    return {
+      ...state,
+      fetching: false,
+      errorMessage: action.errorMessage,
+    };
 
   default:
     return state;
   }
 }
-
