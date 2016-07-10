@@ -14,7 +14,8 @@
     "dev": "./webpack.dev.js",
     "test": "exit 0",
     "dist": "./build-prod.sh",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "prod:debug": "NODE_ENV=production DEBUG=true npm run dev"
   },
   "author": "",
   "license": "MIT",

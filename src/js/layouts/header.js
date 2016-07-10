@@ -133,22 +133,21 @@ class Header extends React.Component {
           }}
           style={{ flex: 'none', height: 64 }}
           value={tabsValue}>
-          {/* <Tab
+          {/*<Tab
             label='Home'
             style={{height: 64}}
-            value={0} />*/}
+            value={0}
+          />*/}
           <Tab
             label='Leaderboard'
             style={{ height: 64, width: 140 }}
             value={0}
           />
-          {/*
           <Tab
             label='Realtime'
             style={{ height: 64, width: 140 }}
             value={1}
           />
-          */}
         </Tabs>
         <div style={{ flex: 1 }} />
         {this._renderRight()}

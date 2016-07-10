@@ -4,6 +4,7 @@ import _ from 'lodash';
 const initialState = {
   users: {},
   channels: {},
+  matches: {},
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -32,6 +33,39 @@ export default function reducer(state = initialState, action = {}) {
     };
   }
 
+  case Constants.MATCHES_CHANNEL_CONNECTED: {
+    const matches = {};
+    action.matches.forEach((match) => {
+      matches[match.match_id] = match;
+    });
+    return {
+      ...state,
+      matches,
+    };
+  }
+
+  case Constants.BANCHO_MATCH_UPDATE: {
+    const match = action.match;
+    const matches = {
+      ...state.matches,
+      [match.match_id]: match,
+    };
+    return {
+      ...state,
+      matches,
+    };
+  }
+
+  case Constants.BANCHO_MATCH_DESTROY: {
+    const matchId = action.match.match_id;
+    const matches = { ...state.matches };
+    delete matches[matchId];
+    return {
+      ...state,
+      matches,
+    };
+  }
+
   case Constants.BANCHO_USER_OFFLINE: {
     const users = { ...state.users };
     delete users[action.user.id];
@@ -55,4 +89,3 @@ export default function reducer(state = initialState, action = {}) {
     return state;
   }
 }
-

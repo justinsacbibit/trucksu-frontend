@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   socket: null,
   usersChannel: null,
+  matchesChannel: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -21,6 +22,13 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       usersChannel: action.channel,
+    };
+
+  case Constants.MATCHES_CHANNEL_CONNECTED:
+  case Constants.MATCHES_CHANNEL_DISCONNECTED:
+    return {
+      ...state,
+      matchesChannel: action.channel,
     };
 
   case Constants.CURRENT_USER:

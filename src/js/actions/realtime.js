@@ -43,13 +43,61 @@ const Actions = {
   },
   leaveUsersChannel: () => (dispatch, getState) => {
     const { usersChannel } = getState().session;
+    if (!usersChannel) {
+      return;
+    }
     usersChannel.leave();
     dispatch({
       type: Constants.USERS_CHANNEL_DISCONNECTED,
       channel: null,
     });
   },
+  joinMatchesChannel: (socket) => (dispatch) => {
+    const channel = socket.channel('matches');
+
+    channel.on('match_create', (response) => {
+      dispatch({
+        type: Constants.BANCHO_MATCH_CREATE,
+        match: response.match,
+      });
+    });
+
+    channel.on('match_update', (response) => {
+      dispatch({
+        type: Constants.BANCHO_MATCH_UPDATE,
+        match: response.match,
+      });
+    });
+
+    channel.on('match_destroy', (response) => {
+      dispatch({
+        type: Constants.BANCHO_MATCH_DESTROY,
+        match: response.match,
+      });
+    });
+
+    channel.join()
+    .receive('ok', (response) => {
+      dispatch({
+        type: Constants.MATCHES_CHANNEL_CONNECTED,
+        channel,
+        matches: response.matches,
+      });
+    })
+    .receive('error', ({ reason }) => console.log('Failed to join matches channel', reason))
+    .receive('timeout', () => console.log('Networking issue'));
+  },
+  leaveMatchesChannel: () => (dispatch, getState) => {
+    const { matchesChannel } = getState().session;
+    if (!matchesChannel) {
+      return;
+    }
+    matchesChannel.leave();
+    dispatch({
+      type: Constants.MATCHES_CHANNEL_DISCONNECTED,
+      channel: null,
+    });
+  },
 };
 
 export default Actions;
-
