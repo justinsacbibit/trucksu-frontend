@@ -4,9 +4,11 @@ import React, { PropTypes } from 'react';
 export default class Flag extends React.Component {
   static propTypes = {
     country: PropTypes.string,
+    style: PropTypes.any,
   };
   static defaultProps = {
     country: 'BL',
+    style: {},
   };
 
   render() {
@@ -15,8 +17,8 @@ export default class Flag extends React.Component {
       <img
         src={require(`../../../img/flags/flags-iso/flat/32/${country}.png`)}
         title={country}
+        style={this.props.style}
       />
     );
   }
 }
-

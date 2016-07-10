@@ -4,6 +4,7 @@ import Avatar from 'material-ui/Avatar';
 
 import UserLink from '../../components/UserLink';
 import BeatmapLink from '../../components/BeatmapLink';
+import JoinMatchLink from '../../components/JoinMatchLink';
 
 import {
   getModsArray,
@@ -56,6 +57,13 @@ export default class RealtimeView extends React.Component {
             }
             return (
               <div style={containerStyle}>
+                {/*<div style={{ marginRight: 6 }}>
+                  <JoinMatchLink
+                  matchId={match.match_id}
+                  >
+                  Join
+                  </JoinMatchLink>
+                </div>*/}
                 <div>
                   <div>
                     {getGameModeText(match.game_mode)} (Head To Head)
