@@ -45,8 +45,17 @@ export default class RealtimeView extends React.Component {
     );
   }
 
+  _renderEmptyUsers() {
+    return (
+      <div>
+        There are currently no online users.
+      </div>
+    );
+  }
+
   render() {
     const matches = _.values(this.props.matches);
+    const onlineUsers = _.values(this.props.users);
     return (
       <div style={styles.container}>
         <div style={styles.innerContainer}>
@@ -66,7 +75,7 @@ export default class RealtimeView extends React.Component {
                 containerStyle.marginTop = 12;
               }
               return (
-                <div style={containerStyle}>
+                <div style={containerStyle} key={match.match_id}>
                   {/*<div style={{ marginRight: 6 }}>
                     <JoinMatchLink
                     matchId={match.match_id}
@@ -142,7 +151,7 @@ export default class RealtimeView extends React.Component {
             this._renderEmptyMatches()
           }
           <h2 style={styles.sectionHeader}>Online Users</h2>
-          {_.sortBy(_.values(this.props.users).filter(user => user), (user) => user.rank).map((user, index) => {
+          {onlineUsers.length ? _.sortBy(onlineUsers.filter(user => user), (user) => user.rank).map((user, index) => {
               const action = getActionText(user.action);
 
               const containerStyle = {
@@ -174,7 +183,8 @@ export default class RealtimeView extends React.Component {
                 </div>
               </div>
             );
-          })}
+          })
+          : this._renderEmptyUsers()}
         </div>
       </div>
     );
