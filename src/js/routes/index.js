@@ -37,6 +37,14 @@ export default function configRoutes(store) {
 
     callback();
   };
+  const _redirectToShortBeatmapUrl = (nextState, replace, callback) => {
+    replace(`/b/${nextState.params.beatmapId}`)
+    callback();
+  };
+  const _redirectToShortUserUrl = (nextState, replace, callback) => {
+    replace(`/u/${nextState.params.userId}`)
+    callback();
+  };
 
   return (
     <Route component={MainLayout}>
@@ -45,8 +53,10 @@ export default function configRoutes(store) {
         <IndexRoute component={HomeIndexView} />
         <Route path='/sign-up' component={RegistrationsNew} onEnter={_ensureNotAuthenticated} />
         <Route path='/sign-in' component={SessionsNew} onEnter={_ensureNotAuthenticated} />
-        <Route path='/users/:userId' component={UserShowView} />
-        <Route path='/beatmaps/:beatmapId' component={BeatmapShowView} />
+        <Route path='/users/:userId' component={UserShowView} onEnter={_redirectToShortUserUrl} />
+        <Route path='/u/:userId' component={UserShowView} />
+        <Route path='/beatmaps/:beatmapId' component={BeatmapShowView} onEnter={_redirectToShortBeatmapUrl} />
+        <Route path='/b/:beatmapId' component={BeatmapShowView} />
         <Route path='/verify-email' component={VerifyEmailView} />
         <Route path='/realtime' component={RealtimeShowView} />
 

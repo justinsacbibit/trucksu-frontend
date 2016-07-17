@@ -26,6 +26,7 @@ import {
 } from '../../utils/osu';
 
 import Flag from '../../components/Flag';
+import BeatmapLink from '../../components/BeatmapLink';
 
 
 const styles = {
@@ -94,11 +95,6 @@ class UserShowView extends React.Component {
     this.props.dispatch(Actions.leaveUserChannel(this.props.params.userId));
   }
 
-  _handleBeatmapClick(beatmapId, e) {
-    e.preventDefault();
-    this.props.dispatch(push(`/beatmaps/${beatmapId}`));
-  }
-
   _onDrop = (files) => {
     const data = new FormData();
     data.append('avatar', files[0]);
@@ -132,13 +128,9 @@ class UserShowView extends React.Component {
             <div key={index}>
               <div style={{ display: 'flex', flexDirection: 'row', padding: 5 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '65%' }}>
-                  <a
-                    href={`/beatmaps/${score.beatmap.id}`}
-                    onClick={this._handleBeatmapClick.bind(this, score.beatmap.id)}
-                    style={{ textDecoration: 'none' }}
-                  >
+                  <BeatmapLink beatmapId={score.beatmap.id}>
                     <strong>{rank}</strong> {`${score.beatmap.beatmapset.artist} - ${score.beatmap.beatmapset.title} [${score.beatmap.version}]`}
-                  </a>
+                  </BeatmapLink>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     Mapped by&nbsp;
                     <a

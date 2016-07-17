@@ -55,7 +55,7 @@ export default class RealtimeView extends React.Component {
 
   render() {
     const matches = _.values(this.props.matches);
-    const onlineUsers = _.values(this.props.users);
+    const onlineUsers = _.values(this.props.users).filter(user => user);
     return (
       <div style={styles.container}>
         <div style={styles.innerContainer}>
@@ -151,7 +151,7 @@ export default class RealtimeView extends React.Component {
             this._renderEmptyMatches()
           }
           <h2 style={styles.sectionHeader}>Online Users</h2>
-          {onlineUsers.length ? _.sortBy(onlineUsers.filter(user => user), (user) => user.rank).map((user, index) => {
+          {onlineUsers.length ? _.sortBy(onlineUsers, (user) => user.rank).map((user, index) => {
               const action = getActionText(user.action);
 
               const containerStyle = {

@@ -11,18 +11,22 @@ class UserLink extends React.Component {
     children: PropTypes.node,
   }
 
+  _url() {
+    return `/u/${this.props.userId}`;
+  }
+
   _handleUserClick = (e) => {
     if (e.button == 1) {
       return;
     }
     e.preventDefault();
-    this.props.dispatch(push(`/users/${this.props.userId}`));
+    this.props.dispatch(push(this._url()));
   }
 
   render() {
     return (
       <a
-        href={`/users/${this.props.userId}`}
+        href={this._url()}
         onClick={this._handleUserClick}
         style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none' }}
       >

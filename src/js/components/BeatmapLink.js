@@ -14,18 +14,22 @@ class BeatmapLink extends React.Component {
     style: {},
   }
 
+  _url() {
+    return `/b/${this.props.beatmapId}`;
+  }
+
   _handleClick = (e) => {
     if (e.button == 1) {
       return;
     }
     e.preventDefault();
-    this.props.dispatch(push(`/beatmaps/${this.props.beatmapId}`));
+    this.props.dispatch(push(this._url()));
   }
 
   render() {
     return (
       <a
-        href={`/beatmaps/${this.props.beatmapId}`}
+        href={this._url()}
         onClick={this._handleClick}
         style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none', ...this.props.style }}
       >
