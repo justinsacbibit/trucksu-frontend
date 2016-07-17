@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
+import moment from 'moment';
+
 import Dropzone from 'react-dropzone';
 
 import CircularProgress from 'material-ui/CircularProgress';
@@ -233,10 +235,10 @@ class UserShowView extends React.Component {
     );
   }
 
-  _renderStatRow(label, value) {
+  _renderStatRow(label, value, title) {
     return (
       <div style={{ display: 'flex', flexDirection: 'row', width: 300 }}>
-        {label}:<div style={{ flex: 1 }}/><strong>{value}</strong>
+        {label}:<div style={{ flex: 1 }}/><strong title={title}>{value}</strong>
       </div>
     );
   }
@@ -282,6 +284,7 @@ class UserShowView extends React.Component {
               {this._renderStatRow('Ranked Score', stats.ranked_score.toLocaleString())}
               {this._renderStatRow('Total Hits', stats.total_hits.toLocaleString())}
               {this._renderStatRow('Replays watched by others', stats.replays_watched.toLocaleString())}
+              {this._renderStatRow('Joined', moment.utc(user.inserted_at).format('LL'), user.inserted_at)}
             </div>
           </div>
         </div>

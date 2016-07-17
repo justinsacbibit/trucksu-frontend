@@ -35,6 +35,8 @@ var config = module.exports = {
     ],
   },
 
+  devtool: 'source-map',
+
   // where webpack should output our files
   output: {
     path: join('dist'),

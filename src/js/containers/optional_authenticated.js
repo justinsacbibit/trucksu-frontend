@@ -73,6 +73,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     closeLoggedOutSnackbar: SessionActions.closeLoggedOutSnackbar,
+    dispatch,
   }, dispatch);
 };
 
