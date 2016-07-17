@@ -35,7 +35,7 @@ var config = module.exports = {
     ],
   },
 
-  devtool: 'source-map',
+  devtool: env === 'dev' || debug ? 'source-map' : false,
 
   // where webpack should output our files
   output: {
