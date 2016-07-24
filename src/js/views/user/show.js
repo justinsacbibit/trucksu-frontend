@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 import moment from 'moment';
 
@@ -169,7 +168,7 @@ class UserShowView extends React.Component {
   _renderFirstPlaceScoresTable(scores) {
     return (
       <div>
-        <h3 style={{ fontFamily: 'Roboto,sans-serif', borderBottom: '1px solid #eee', paddingBottom: '.3em', fontWeight: 400 }}>First Place Ranks</h3>
+        <h3 style={{ ...styles.h3, borderBottom: '1px solid #eee', paddingBottom: '.3em' }}>First Place Ranks</h3>
         {this._renderScoresTable(scores)}
       </div>
     );
