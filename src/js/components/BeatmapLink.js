@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import Link from './Link';
 
 
 class BeatmapLink extends React.Component {
@@ -19,22 +20,17 @@ class BeatmapLink extends React.Component {
   }
 
   _handleClick = (e) => {
-    if (e.button == 1) {
-      return;
-    }
-    e.preventDefault();
     this.props.dispatch(push(this._url()));
   }
 
   render() {
     return (
-      <a
+      <Link
         href={this._url()}
         onClick={this._handleClick}
-        style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none', ...this.props.style }}
       >
         {this.props.children}
-      </a>
+      </Link>
     );
   }
 }
