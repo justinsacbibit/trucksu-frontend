@@ -1,6 +1,19 @@
 import React, { PropTypes } from 'react';
+import Radium from 'radium';
 
 
+const styles = {
+  anchor: {
+    color: '#333',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    ':hover': {
+      color: '#4078c0',
+    },
+  },
+};
+
+@Radium
 export default class Link extends React.Component {
   static propTypes = {
     href: PropTypes.string,
@@ -25,7 +38,7 @@ export default class Link extends React.Component {
       <a
         href={this.props.href}
         onClick={this._handleClick}
-        style={{ color: '#0000FF', cursor: 'pointer', textDecoration: 'none', ...this.props.style }}
+        style={[styles.anchor, ...this.props.style]}
       >
         {this.props.children}
       </a>

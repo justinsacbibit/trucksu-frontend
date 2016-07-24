@@ -27,6 +27,7 @@ import {
 
 import Flag from '../../components/Flag';
 import BeatmapLink from '../../components/BeatmapLink';
+import Link from '../../components/Link';
 
 
 const styles = {
@@ -133,12 +134,9 @@ class UserShowView extends React.Component {
                   </BeatmapLink>
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
                     Mapped by&nbsp;
-                    <a
-                      href={`http://new.ppy.sh/u/${score.beatmap.beatmapset.creator}`}
-                      style={{ textDecoration: 'none' }}
-                    >
+                    <Link href={`http://new.ppy.sh/u/${score.beatmap.beatmapset.creator}`}>
                       {score.beatmap.beatmapset.creator}
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 &nbsp;{mods ? <strong>{mods}&nbsp;</strong> : mods}{`(${(score.accuracy * 100).toFixed(2)}%, ${score.max_combo}x)`}
