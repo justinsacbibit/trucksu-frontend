@@ -38,11 +38,11 @@ export default function configRoutes(store) {
     callback();
   };
   const _redirectToShortBeatmapUrl = (nextState, replace, callback) => {
-    replace(`/b/${nextState.params.beatmapId}`)
+    replace(`/b/${nextState.params.beatmapId}`);
     callback();
   };
   const _redirectToShortUserUrl = (nextState, replace, callback) => {
-    replace(`/u/${nextState.params.userId}`)
+    replace(`/u/${nextState.params.userId}`);
     callback();
   };
 
