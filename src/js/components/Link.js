@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import { cyan900 } from 'material-ui/styles/colors';
 
 
 const styles = {
   anchor: {
-    color: '#333',
+    color: cyan900,
     cursor: 'pointer',
     textDecoration: 'none',
     ':hover': {
