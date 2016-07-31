@@ -26,7 +26,7 @@ export default class Link extends React.Component {
   }
 
   _handleClick = (e) => {
-    if (!this.props.href.startsWith('/') || e.button == 1) {
+    if (!this.props.href.startsWith('/') || e.button === 1) {
       return;
     }
     e.preventDefault();

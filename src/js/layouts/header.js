@@ -152,7 +152,7 @@ class Header extends React.Component {
           }}
           style={{ flex: 'none', height: 64 }}
           value={tabsValue}>
-          {/*<Tab
+          {/* <Tab
             label='Home'
             style={{height: 64}}
             value={0}

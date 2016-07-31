@@ -1,12 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
-import Paper from 'material-ui/Paper';
-import Avatar from 'material-ui/Avatar';
-import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
-import CircularProgress from 'material-ui/CircularProgress';
-import Divider from 'material-ui/Divider';
 
 import Actions from '../../actions/realtime';
 import RealtimeView from './view';
@@ -22,6 +16,8 @@ class RealtimeShowView extends React.Component {
     users: PropTypes.object.isRequired,
     matches: PropTypes.object.isRequired,
     socket: PropTypes.any,
+    usersChannel: PropTypes.any,
+    matchesChannel: PropTypes.any,
   }
 
   componentDidMount() {

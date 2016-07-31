@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 
 import Avatar from 'material-ui/Avatar';
 
 import UserLink from '../../components/UserLink';
 import BeatmapLink from '../../components/BeatmapLink';
-import JoinMatchLink from '../../components/JoinMatchLink';
+// import JoinMatchLink from '../../components/JoinMatchLink';
 
 import {
-  getModsArray,
   getActionText,
   getGameModeText,
 } from '../../utils/osu';
@@ -17,9 +17,9 @@ import {
 
 const styles = {
   container: {
-     display: 'flex',
-     justifyContent: 'center',
-     flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   innerContainer: {
     width: 965,
@@ -64,7 +64,7 @@ export default class RealtimeView extends React.Component {
             matches.map((match, index) => {
               const users = match.slots.filter(slot => slot.user_id !== -1);
               const totalSlotCount = match.slots.filter(slot => slot.status !== 2).length;
-              const sortedUsers = users.map(user => user.user_id).filter(userId => this.props.users[userId]).map(userId => this.props.users[userId])
+              const sortedUsers = users.map(user => user.user_id).filter(userId => this.props.users[userId]).map(userId => this.props.users[userId]);
               sortedUsers.sort((a, b) => a.rank - b.rank);
               const bestRank = sortedUsers.length ? sortedUsers[0].rank : '?';
               const worstRank = sortedUsers.length ? sortedUsers[sortedUsers.length - 1].rank : '?';
@@ -76,7 +76,7 @@ export default class RealtimeView extends React.Component {
               }
               return (
                 <div style={containerStyle} key={match.match_id}>
-                  {/*<div style={{ marginRight: 6 }}>
+                  {/* <div style={{ marginRight: 6 }}>
                     <JoinMatchLink
                     matchId={match.match_id}
                     >
@@ -152,16 +152,16 @@ export default class RealtimeView extends React.Component {
           }
           <h2 style={styles.sectionHeader}>Online Users</h2>
           {onlineUsers.length ? _.sortBy(onlineUsers, (user) => user.rank).map((user, index) => {
-              const action = getActionText(user.action);
+            const action = getActionText(user.action);
 
-              const containerStyle = {
-                display: 'flex',
-                flexDirection: 'row',
-                height: 36,
-              };
-              if (index !== 0) {
-                containerStyle.marginTop = 4;
-              }
+            const containerStyle = {
+              display: 'flex',
+              flexDirection: 'row',
+              height: 36,
+            };
+            if (index !== 0) {
+              containerStyle.marginTop = 4;
+            }
 
             return (
               <div style={containerStyle} key={user.id}>
