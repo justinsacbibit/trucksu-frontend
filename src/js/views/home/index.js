@@ -7,7 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
 import ErrorOutline from 'material-ui/svg-icons/alert/error-outline';
-import {blue500} from 'material-ui/styles/colors';
+import { blue500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {
