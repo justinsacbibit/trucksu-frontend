@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import CircularProgress from 'material-ui/CircularProgress';
 import AppBar from 'material-ui/AppBar';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import SessionActions from '../actions/sessions';
 
@@ -24,6 +25,7 @@ class Header extends React.Component {
       username: PropTypes.string.isRequired,
     }),
     loadingUser: PropTypes.bool,
+    error: PropTypes.any,
 
     location: PropTypes.shape({
       pathname: PropTypes.string,
@@ -77,6 +79,10 @@ class Header extends React.Component {
     );
   }
 
+  handlePressRetry = () => {
+    this.props.dispatch(SessionActions.currentUser());
+  };
+
   _renderRight() {
     if (this.props.loadingUser) {
       return (
@@ -84,6 +90,19 @@ class Header extends React.Component {
           color='white'
           size={0.5}
         />
+      );
+    }
+
+    if (this.props.error) {
+      return (
+        <div style={{ color: 'white' }}>
+          Something went wrong getting your info...
+          <RaisedButton
+            label='Retry'
+            style={{ marginLeft: 12 }}
+            onClick={this.handlePressRetry}
+          />
+        </div>
       );
     }
 
@@ -150,7 +169,9 @@ class Header extends React.Component {
           />
         </Tabs>
         <div style={{ flex: 1 }} />
-        {this._renderRight()}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {this._renderRight()}
+        </div>
       </AppBar>
     );
   }
@@ -159,6 +180,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
   loadingUser: state.session.loading,
+  error: state.session.error,
   //socket: state.session.socket,
   //boards: state.boards,
   //currentBoard: state.currentBoard,

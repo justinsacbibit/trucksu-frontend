@@ -46,6 +46,14 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       loading: true,
+      error: null,
+    };
+
+  case Constants.CURRENT_USER_ERROR:
+    return {
+      ...state,
+      loading: false,
+      error: action.error,
     };
 
   case Constants.USER_SIGNED_OUT:
