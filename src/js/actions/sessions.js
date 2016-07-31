@@ -61,6 +61,10 @@ const Actions = {
       })
       .catch((error) => {
         console.log(error);
+        dispatch({
+          type: Constants.CURRENT_USER_ERROR,
+          error,
+        });
         dispatch(push('/sign-in'));
       });
     };
