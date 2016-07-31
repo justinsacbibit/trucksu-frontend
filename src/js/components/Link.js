@@ -38,7 +38,7 @@ export default class Link extends React.Component {
       <a
         href={this.props.href}
         onClick={this._handleClick}
-        style={[styles.anchor, ...this.props.style]}
+        style={[styles.anchor, this.props.style]}
       >
         {this.props.children}
       </a>

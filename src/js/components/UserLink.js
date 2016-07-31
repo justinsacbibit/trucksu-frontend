@@ -10,6 +10,7 @@ class UserLink extends React.Component {
     userId: PropTypes.any.isRequired,
     username: PropTypes.node,
     children: PropTypes.node,
+    style: PropTypes.any,
   }
 
   _url() {
@@ -25,6 +26,7 @@ class UserLink extends React.Component {
       <Link
         href={this._url()}
         onClick={this._handleUserClick}
+        style={this.props.style}
       >
         {this.props.username || this.props.children}
       </Link>

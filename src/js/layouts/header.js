@@ -15,6 +15,7 @@ import HeaderButton from '../components/HeaderButton';
 const styles = {
   right: {
     display: 'flex',
+    alignItems: 'center',
   },
 };
 
@@ -50,10 +51,11 @@ class Header extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <div style={{ alignSelf: 'center' }}>
+      <div style={{ color: 'white', display: 'flex', alignItems: 'center' }}>
         <UserLink
           userId={currentUser.id}
           username={currentUser.username}
+          style={{ color: 'white' }}
         />
       </div>
     );
