@@ -56,7 +56,7 @@ $ cd dist
 $ git init
 $ git remote add origin git@github.com:justinsacbibit/trucksu-frontend.git # or use the https url
 $ git fetch origin
-$ git reset origin/gh-pages --hard
+$ git checkout gh-pages
 $ cd ..
 
 # start here if you've deployed before
