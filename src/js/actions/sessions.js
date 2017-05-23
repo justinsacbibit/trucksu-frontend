@@ -61,6 +61,11 @@ const Actions = {
       })
       .catch((error) => {
         console.log(error);
+        if (error.response.status === 403) {
+          localStorage.removeItem('trucksuAuthToken');
+          setCurrentUser(dispatch, null);
+          return;
+        }
         dispatch({
           type: Constants.CURRENT_USER_ERROR,
           error,

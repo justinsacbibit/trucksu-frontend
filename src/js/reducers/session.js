@@ -53,7 +53,7 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       loading: false,
-      error: action.error,
+      error: action.error.toString(),
     };
 
   case Constants.USER_SIGNED_OUT:
